@@ -91,5 +91,8 @@ flutter:
     - family: Prompt
       fonts:
         - asset: assets/fonts/Prompt-ExtraBold.ttf
+    - family: Prompt_Light
+      fonts:
+        - asset: assets/fonts/Prompt-ExtraLight.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -9,10 +9,10 @@ const Color black = Color(0xFF010101);
 const Color white = Color(0xFFFFFFFF);
 
 const TextStyle thin =
-    TextStyle(fontFamily: 'Prompt', fontWeight: FontWeight.w100);
+    TextStyle(fontFamily: 'Prompt_Light', fontWeight: FontWeight.w100);
 
 const TextStyle light =
-    TextStyle(fontFamily: 'Prompt', fontWeight: FontWeight.w500);
+    TextStyle(fontFamily: 'Prompt_Light', fontWeight: FontWeight.bold);
 
 const TextStyle bold =
-    TextStyle(fontFamily: 'Prompt', fontWeight: FontWeight.w900);
+    TextStyle(fontFamily: 'Prompt', fontWeight: FontWeight.w700);

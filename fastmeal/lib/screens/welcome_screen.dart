@@ -1,15 +1,15 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, duplicate_import
+// ignore_for_file: unused_import
 
 import 'package:fastmeal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:fastmeal/shared/constant.dart';
-import 'package:fastmeal/widgets/button.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: white,
       body: SafeArea(
@@ -20,10 +20,10 @@ class WelcomeScreen extends StatelessWidget {
           children: [
             Image.asset(
               'assets/icons/meal.png',
-              height: 60,
+              height: size.height * 0.1,
             ),
             SizedBox(
-              height: 40,
+              height: size.height * 0.07,
             ),
             Row(children: [
               Spacer(),
@@ -37,11 +37,10 @@ class WelcomeScreen extends StatelessWidget {
             ),
             ],),
             Spacer(),
-            ButtonWidget(text: 'เข้าสู่ระบบ', textcolor: white, bordercolor: orange, fieldcolor: orange, textsize: 20,),
-            ButtonWidget(text: 'ลงชื่อเข้าใช้', textcolor: orange, bordercolor: orange, fieldcolor: white, textsize: 20),
+            ButtonWidget(text: 'เข้าสู่ระบบ', textcolor: white, bordercolor: orange, fieldcolor: orange, textsize: 20, route: '/login',),
+            ButtonWidget(text: 'ลงชื่อเข้าใช้', textcolor: orange, bordercolor: orange, fieldcolor: white, textsize: 20, route: '/login',),
             Row(children: [
-              Text('และรอการยืนยันจากระบบการเป็นเจ้าของร้าน', style: light.copyWith(color: black, fontSize: 15),),
-              Spacer(),
+              Text('และรอการยืนยันจากระบบการเป็นเจ้าของร้าน  ', style: light.copyWith(color: black, fontSize: 14),),
               Text('ติดต่อ', style: bold.copyWith(color: black,fontSize: 15),)
             ],)
           ],

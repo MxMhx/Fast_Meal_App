@@ -1,3 +1,4 @@
+import 'package:fastmeal/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/welcome_screen.dart';
 
@@ -12,10 +13,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FastMeal Flutter App',
-      theme: ThemeData(
-        fontFamily: 'Prompt'
-      ),
-      home: const WelcomeScreen(),
+      initialRoute: '/login',
+      routes: {'/': (context) => const WelcomeScreen(),
+      '/login':(context) => const LoginScreen()},
     );
   }
 }
