@@ -3,11 +3,14 @@
 import 'package:fastmeal/shared/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:fastmeal/widgets/button.dart';
+import 'package:fastmeal/data/profile.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
+
+  Profile profile = Profile();
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +55,7 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 children: [
                   const InputEmailField(),
-                  InputPasswordlField(onChange: ((value) {}),),
+                  InputPasswordlField(),
                 ],
               ),
             ),
@@ -92,40 +95,44 @@ class InputEmailField extends StatelessWidget {
   }
 }
 
-class InputPasswordlField extends StatelessWidget {
-  InputPasswordlField({super.key,required this.onChange});
+class InputPasswordlField extends StatefulWidget {
+  const InputPasswordlField({super.key});
 
-  final ValueChanged<String> onChange;
+  @override
+  State<InputPasswordlField> createState() => _InputPasswordlFieldState();
+}
+
+class _InputPasswordlFieldState extends State<InputPasswordlField> {
+  
   bool _obscureText = true;
 
-  void _toggle() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
+  @override
+  void initState() {
+    super.initState();
+    _obscureText = true;
   }
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: const TextField(
+      child: TextField(
         obscureText: true,
         decoration: InputDecoration(
-          icon: Icon(
+          icon: const Icon(
             Icons.lock,
             color: black,
           ),
           hintText: 'password',
           suffixIcon: Icon(
-            Icons.visibility,
+            _obscureText ? Icons.visibility : Icons.visibility_off,
             color: black,
+            onPressed: null,
           ),
           border: InputBorder.none,
         ),
       ),
     );
   }
-  
-  void setState(Null Function() param0) {}
 }
 
 class TextFieldContainer extends StatelessWidget {
