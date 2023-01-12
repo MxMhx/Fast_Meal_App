@@ -26,7 +26,7 @@ class WelcomeScreen extends StatelessWidget {
               height: size.height * 0.07,
             ),
             Row(children: [
-              Spacer(),
+            const Spacer(),
               Text(
               'เริ่มต้น\nลงชื่อเข้าใช้',
               style: bold.copyWith(
@@ -36,7 +36,7 @@ class WelcomeScreen extends StatelessWidget {
               textAlign: TextAlign.end,
             ),
             ],),
-            Spacer(),
+            const Spacer(),
             ButtonWidget(text: 'เข้าสู่ระบบ', textcolor: white, bordercolor: orange, fieldcolor: orange, textsize: 20, route: '/login',),
             ButtonWidget(text: 'ลงชื่อเข้าใช้', textcolor: orange, bordercolor: orange, fieldcolor: white, textsize: 20, route: '/login',),
             Row(children: [

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'FastMeal Flutter App',
       initialRoute: '/login',
       routes: {'/': (context) => const WelcomeScreen(),
-      '/login':(context) => const LoginScreen()},
+      '/login':(context) =>  LoginScreen()},
     );
   }
 }

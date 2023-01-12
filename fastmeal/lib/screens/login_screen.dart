@@ -5,12 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:fastmeal/widgets/button.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: black,
       body: SafeArea(
           child: Padding(
@@ -43,8 +47,14 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            Column(
-              children: [InputTextField(hinttext: 'Email', icon: Icons.person)],
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  const InputEmailField(),
+                  InputPasswordlField(onChange: ((value) {}),),
+                ],
+              ),
             ),
             const Spacer(),
             ButtonWidget(
@@ -61,30 +71,61 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class InputTextField extends StatelessWidget {
-  String? hinttext;
-  IconData icon;
-  InputTextField({
-    Key? key,
-    required this.hinttext,
-    required this.icon,
-  }) : super(key: key);
+class InputEmailField extends StatelessWidget {
+  const InputEmailField({super.key});
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: const TextField(
+        keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           icon: Icon(
             Icons.person,
             color: black,
           ),
-          hintText: "Email",
+          hintText: 'Email',
           border: InputBorder.none,
         ),
       ),
     );
   }
+}
+
+class InputPasswordlField extends StatelessWidget {
+  InputPasswordlField({super.key,required this.onChange});
+
+  final ValueChanged<String> onChange;
+  bool _obscureText = true;
+
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFieldContainer(
+      child: const TextField(
+        obscureText: true,
+        decoration: InputDecoration(
+          icon: Icon(
+            Icons.lock,
+            color: black,
+          ),
+          hintText: 'password',
+          suffixIcon: Icon(
+            Icons.visibility,
+            color: black,
+          ),
+          border: InputBorder.none,
+        ),
+      ),
+    );
+  }
+  
+  void setState(Null Function() param0) {}
 }
 
 class TextFieldContainer extends StatelessWidget {
