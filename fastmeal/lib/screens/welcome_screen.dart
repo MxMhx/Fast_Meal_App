@@ -25,24 +25,52 @@ class WelcomeScreen extends StatelessWidget {
             SizedBox(
               height: size.height * 0.07,
             ),
-            Row(children: [
-            const Spacer(),
-              Text(
-              'เริ่มต้น\nลงชื่อเข้าใช้',
-              style: bold.copyWith(
-                color: orange,
-                fontSize: 40,
-              ),
-              textAlign: TextAlign.end,
+            Row(
+              children: [
+                const Spacer(),
+                Text(
+                  'เริ่มต้น\nลงชื่อเข้าใช้',
+                  style: bold.copyWith(
+                    color: orange,
+                    fontSize: 40,
+                  ),
+                  textAlign: TextAlign.end,
+                ),
+              ],
             ),
-            ],),
             const Spacer(),
-            ButtonWidget(text: 'เข้าสู่ระบบ', textcolor: white, bordercolor: orange, fieldcolor: orange, textsize: 20, route: '/login',),
-            ButtonWidget(text: 'ลงชื่อเข้าใช้', textcolor: orange, bordercolor: orange, fieldcolor: white, textsize: 20, route: '/login',),
-            Row(children: [
-              Text('และรอการยืนยันจากระบบการเป็นเจ้าของร้าน  ', style: light.copyWith(color: black, fontSize: 14),),
-              Text('ติดต่อ', style: bold.copyWith(color: black,fontSize: 15),)
-            ],)
+            ButtonWidget(
+              text: 'เข้าสู่ระบบ',
+              textcolor: white,
+              bordercolor: orange,
+              fieldcolor: orange,
+              textsize: 20,
+              onTap: () {
+                Navigator.pushNamed(context, '/login');
+              },
+            ),
+            ButtonWidget(
+              text: 'ลงชื่อเข้าใช้',
+              textcolor: orange,
+              bordercolor: orange,
+              fieldcolor: white,
+              textsize: 20,
+              onTap: () {
+                Navigator.pushNamed(context, '/signup');
+              },
+            ),
+            Row(
+              children: [
+                Text(
+                  'และรอการยืนยันจากระบบการเป็นเจ้าของร้าน  ',
+                  style: light.copyWith(color: black, fontSize: 14),
+                ),
+                Text(
+                  'ติดต่อ',
+                  style: bold.copyWith(color: black, fontSize: 15),
+                )
+              ],
+            ),
           ],
         ),
       )),
