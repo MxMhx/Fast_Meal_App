@@ -67,21 +67,21 @@ class SignUpSecondScreen extends StatelessWidget {
                       Container(
                         width: 100,
                         height: 100,
-                        padding: const EdgeInsets.all(3),
+                        padding: const EdgeInsets.all(5),
                         decoration: const BoxDecoration(
                           color: white,
                           shape: BoxShape.circle,
                         ),
                         child: Container(
-                          width: 80,
-                          height: 80,
+                          width: 70,
+                          height: 70,
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               image: AssetImage(
                                 'assets/icons/user.png',
                               ),
-                              fit: BoxFit.cover,
+                              fit: BoxFit.contain,
                             ),
                           ),
                         ),
@@ -133,7 +133,7 @@ class SignUpSecondScreen extends StatelessWidget {
                     ],
                   ),
                   ButtonWidget(
-                      text: 'ถัดไป',
+                      text: 'ลงชื่อเข้าใช้',
                       textcolor: black,
                       bordercolor: orange,
                       fieldcolor: orange,

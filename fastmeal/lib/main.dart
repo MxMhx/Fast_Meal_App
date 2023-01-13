@@ -1,3 +1,4 @@
+import 'package:fastmeal/screens/get_order_screen.dart';
 import 'package:fastmeal/screens/login_screen.dart';
 import 'package:fastmeal/screens/sign_up_screen_1.dart';
 import 'package:fastmeal/screens/sign_up_screen_2.dart';
@@ -15,12 +16,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FastMeal Flutter App',
-      initialRoute: '/signups',
+      initialRoute: '/getorder',
       routes: {
         '/': (context) => const WelcomeScreen(),
         '/login': (context) => LoginScreen(),
         '/signup': (context) => const SignUpFirstScreen(),
         '/signups' : (context) => SignUpSecondScreen(),
+        '/getorder' : (context) => GetOrderScreen(),
       },
     );
   }
