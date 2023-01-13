@@ -53,8 +53,8 @@ class LoginScreen extends StatelessWidget {
             Form(
               key: _formKey,
               child: Column(
-                children: [
-                  const InputEmailField(),
+                children: const [
+                  InputEmailField(),
                   InputPasswordlField(),
                 ],
               ),
@@ -103,7 +103,6 @@ class InputPasswordlField extends StatefulWidget {
 }
 
 class _InputPasswordlFieldState extends State<InputPasswordlField> {
-  
   bool _obscureText = true;
 
   @override
@@ -112,21 +111,25 @@ class _InputPasswordlFieldState extends State<InputPasswordlField> {
     _obscureText = true;
   }
 
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextField(
-        obscureText: true,
+        obscureText: _obscureText,
         decoration: InputDecoration(
           icon: const Icon(
             Icons.lock,
             color: black,
           ),
           hintText: 'password',
-          suffixIcon: Icon(
-            _obscureText ? Icons.visibility : Icons.visibility_off,
-            color: black,
-            onPressed: null,
+          suffixIcon: IconButton(
+            icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off,color: black,),
+            onPressed: _toggle,
           ),
           border: InputBorder.none,
         ),
