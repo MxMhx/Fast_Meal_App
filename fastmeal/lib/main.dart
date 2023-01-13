@@ -1,4 +1,4 @@
-import 'package:fastmeal/screens/get_order_screen.dart';
+import 'package:fastmeal/screens/home_screen.dart';
 import 'package:fastmeal/screens/login_screen.dart';
 import 'package:fastmeal/screens/sign_up_screen_1.dart';
 import 'package:fastmeal/screens/sign_up_screen_2.dart';
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginScreen(),
         '/signup': (context) => const SignUpFirstScreen(),
         '/signups' : (context) => SignUpSecondScreen(),
-        '/getorder' : (context) => GetOrderScreen(),
+        '/getorder' : (context) => HomeScreen(),
       },
     );
   }
