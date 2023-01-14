@@ -3,57 +3,43 @@ import 'package:fastmeal/shared/constant.dart';
 import 'package:fastmeal/widgets/button.dart';
 
 class OrderContainer extends StatelessWidget {
-  const OrderContainer({super.key});
+  OrderContainer({super.key});
+
+  List<String> menus = ['krapraw', 'tto'];
+
+  List<String> amount = ['1', '2'];
+  List<String> prices = ['50 Baht', '60 Baht'];
+  List<String> notes = ['eggs', 'more'];
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 20),
-      decoration:
-          BoxDecoration(color: light_orange, borderRadius: BorderRadius.circular(20)),
-      child: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(
-                  'name',
-                  style: bold.copyWith(
-                    color: black,
-                    fontSize: 20,
-                  ),
-                )
-              ],
-            ),
-            menuOrderList(),
-            Row(
-              children: [
-                Text('รวม'),
-                Text('150 Bath'),
-              ],
-            ),
-            Text('หมายเหตุ'),
-            Text('จัดส่งแผนก ISO'),
-            ButtonWidget(
-                text: 'รับออเดอร์',
-                textcolor: black,
-                bordercolor: orange,
-                fieldcolor: orange,
-                textsize: 18,
-                onTap: () {})
-          ],
-        ),
-      ),
+    return Column(
+      children: [
+        ListView.builder(
+            itemCount: menus.length,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (context, index) {
+              return Container(
+                decoration: BoxDecoration(
+                  color: orange,
+                ),
+              );
+            }),
+      ],
     );
   }
 }
 
 class menuOrderList extends StatelessWidget {
-  const menuOrderList({
-    Key? key,
-  }) : super(key: key);
+  menuOrderList({
+    super.key,
+    required this.menu,
+    required this.amount,
+    required this.price,
+    required this.note,
+  });
+
+  String menu, amount, price, note;
 
   @override
   Widget build(BuildContext context) {
@@ -61,14 +47,14 @@ class menuOrderList extends StatelessWidget {
       children: [
         Row(
           children: [
-            Text('krapraw'),
-            Text('x1'),
+            Text(menu),
+            Text(amount),
           ],
         ),
         Row(
           children: [
-            Text('eggs'),
-            Text('50 Bath'),
+            Text(note),
+            Text(price),
           ],
         )
       ],

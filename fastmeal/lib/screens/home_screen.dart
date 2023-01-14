@@ -73,46 +73,47 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               SizedBox(
                 height: 40,
-                child: Container(
-                      child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: tabs.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              current = index;
-                            });
-                          },
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              decoration: BoxDecoration(
-                                color: current == index ? orange : white,
-                                borderRadius: BorderRadius.circular(30),
-                                border: Border.all(
-                                  color: orange,
-                                  width: 2,
-                                ),
+                child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: tabs.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            current = index;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
+                            decoration: BoxDecoration(
+                              color: current == index ? orange : white,
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(
+                                color: orange,
+                                width: 2,
                               ),
-                              child: Center(
-                                  child: Container(
-                                margin: EdgeInsets.symmetric(horizontal: 20),
-                                child: Text(
-                                  tabs[index],
-                                  style: light.copyWith(
-                                      color: black, fontSize: 16),
-                                ),
-                              )),
                             ),
+                            child: Center(
+                                child: Container(
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Text(
+                                tabs[index],
+                                style:
+                                    light.copyWith(color: black, fontSize: 16),
+                              ),
+                            )),
                           ),
-                        );
-                      }),
-                ),
+                        ),
+                      );
+                    }),
               ),
-              OrderContainer(),
+              SizedBox(child: ListView.builder(itemBuilder: (context,index) {
+                return Container(decoration: BoxDecoration(color: orange),);
+              }),)
             ],
           ),
         ),
