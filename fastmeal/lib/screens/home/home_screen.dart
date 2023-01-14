@@ -111,9 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }),
               ),
-              SizedBox(child: ListView.builder(itemBuilder: (context,index) {
-                return Container(decoration: BoxDecoration(color: orange),);
-              }),)
+              OrderContainer()
             ],
           ),
         ),
