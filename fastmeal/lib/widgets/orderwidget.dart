@@ -133,7 +133,7 @@ class OrderContainer extends StatelessWidget {
                             ),
                             const Spacer(),
                             Text(
-                              '',
+                              '${ordermodel.map((e) => e.price[e.price.length-1] * e.amount[e.amount.length-1]).reduce((value, element) => value + element)}',
                               style: light.copyWith(
                                 fontSize: 16,
                                 color: black,
