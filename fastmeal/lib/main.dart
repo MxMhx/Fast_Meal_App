@@ -19,12 +19,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FastMeal Flutter App',
-      initialRoute: '/',
+      initialRoute: '/signup',
       routes: {
         '/': (context) => const WelcomeScreen(),
         '/login': (context) => LoginScreen(),
-        '/signup': (context) => const SignUpFirstScreen(),
-        '/signups' : (context) => const SignUpSecondScreen(),
+        '/signup': (context) =>  SignUpFirstScreen(),
+        '/signups' : (context) => SignUpSecondScreen(),
         '/home' : (context) => HomeScreen(),
       },
     );

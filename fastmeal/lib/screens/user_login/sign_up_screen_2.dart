@@ -5,157 +5,172 @@ import 'package:fastmeal/widgets/textfieldwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:fastmeal/widgets/button.dart';
 
-class SignUpSecondScreen extends StatelessWidget {
+class SignUpSecondScreen extends StatefulWidget {
   const SignUpSecondScreen({super.key});
 
+  @override
+  State<SignUpSecondScreen> createState() => _SignUpSecondScreenState();
+}
+
+class _SignUpSecondScreenState extends State<SignUpSecondScreen> {
   final String name = 'Kantinan';
   final String code = 'A01';
+
+  var emailnameController = TextEditingController();
+  var passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: black,
-        body: SingleChildScrollView(
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(40),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/signup');
-                      },
-                      icon: const Icon(
-                        Icons.arrow_back_rounded,
-                        color: white,
-                        size: 30,
-                      )),
-                  Text(
-                    'ลงชื่อเข้าใช้',
-                    style: bold.copyWith(
+      backgroundColor: black,
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(40),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/signup');
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back_rounded,
                       color: white,
-                      fontSize: 30,
-                      height: 3,
+                      size: 30,
+                    )),
+                Text(
+                  'ลงชื่อเข้าใช้',
+                  style: bold.copyWith(
+                    color: white,
+                    fontSize: 30,
+                    height: 3,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'Fast Meal',
+                      style: bold.copyWith(
+                        color: light_orange,
+                        fontSize: 20,
+                      ),
                     ),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'Fast Meal',
-                        style: bold.copyWith(
-                          color: light_orange,
-                          fontSize: 20,
-                        ),
+                    const Spacer(),
+                    Text(
+                      '2/2',
+                      style: bold.copyWith(
+                        color: light_orange,
+                        fontSize: 20,
                       ),
-                      const Spacer(),
-                      Text(
-                        '2/2',
-                        style: bold.copyWith(
-                          color: light_orange,
-                          fontSize: 20,
-                        ),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 100,
-                        padding: const EdgeInsets.all(5),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      padding: const EdgeInsets.all(5),
+                      decoration: const BoxDecoration(
+                        color: white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Container(
+                        width: 70,
+                        height: 70,
                         decoration: const BoxDecoration(
-                          color: white,
                           shape: BoxShape.circle,
-                        ),
-                        child: Container(
-                          width: 70,
-                          height: 70,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: AssetImage(
-                                'assets/icons/user.png',
-                              ),
-                              fit: BoxFit.contain,
+                          image: DecorationImage(
+                            image: AssetImage(
+                              'assets/icons/user.png',
                             ),
+                            fit: BoxFit.contain,
                           ),
                         ),
                       ),
-                      const Spacer(),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            name,
-                            style: light.copyWith(
-                              color: white,
-                              fontSize: 20,
-                            ),
-                          ),
-                          Text(
-                            code,
-                            style: light.copyWith(
-                              color: white,
-                              fontSize: 20,
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const InputEmailField(),
-                  const InputPasswordlField(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'หากมีบัญชีอยู่แล้ว ',
-                        style: light.copyWith(color: white, fontSize: 15),
-                      ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Text(
-                          'เข้าสู่ระบบ',
-                          style: bold.copyWith(
-                            color: orange,
-                            fontSize: 15,
+                    ),
+                    const Spacer(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          name,
+                          style: light.copyWith(
+                            color: white,
+                            fontSize: 20,
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                  ButtonWidget(
-                      text: 'ลงชื่อเข้าใช้',
-                      textcolor: black,
-                      bordercolor: orange,
-                      fieldcolor: orange,
-                      textsize: 20,
-                      onTap: () {})
-                ],
-              ),
+                        Text(
+                          code,
+                          style: light.copyWith(
+                            color: white,
+                            fontSize: 20,
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                InputEmailField(controller: emailnameController,),
+                InputPasswordlField(controller: passwordController),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'หากมีบัญชีอยู่แล้ว ',
+                      style: light.copyWith(color: white, fontSize: 15),
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Text(
+                        'เข้าสู่ระบบ',
+                        style: bold.copyWith(
+                          color: orange,
+                          fontSize: 15,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                ButtonWidget(
+                    text: 'ลงชื่อเข้าใช้',
+                    textcolor: black,
+                    bordercolor: orange,
+                    fieldcolor: orange,
+                    textsize: 20,
+                    onTap: () {})
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
+  }
+
+  void _fakeData() {
+
   }
 }
 
 class InputEmailField extends StatelessWidget {
-  const InputEmailField({super.key});
+  InputEmailField({super.key, required this.controller,});
 
+  TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: const TextField(
+      child: TextField(
+        controller: controller,
         keyboardType: TextInputType.emailAddress,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           icon: Icon(
             Icons.person,
             color: black,
@@ -169,14 +184,18 @@ class InputEmailField extends StatelessWidget {
 }
 
 class InputPasswordlField extends StatefulWidget {
-  const InputPasswordlField({super.key});
+  InputPasswordlField({super.key, required this.controller});
 
+  TextEditingController? controller;
+  
   @override
   State<InputPasswordlField> createState() => _InputPasswordlFieldState();
 }
 
 class _InputPasswordlFieldState extends State<InputPasswordlField> {
   bool _obscureText = true;
+  
+  get controller => null;
 
   @override
   void initState() {
@@ -194,6 +213,7 @@ class _InputPasswordlFieldState extends State<InputPasswordlField> {
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextField(
+        controller: controller,
         obscureText: _obscureText,
         decoration: InputDecoration(
           icon: const Icon(

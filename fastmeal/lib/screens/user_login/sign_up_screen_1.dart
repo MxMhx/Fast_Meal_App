@@ -5,8 +5,20 @@ import 'package:fastmeal/widgets/textfieldwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:fastmeal/widgets/button.dart';
 
-class SignUpFirstScreen extends StatelessWidget {
-  const SignUpFirstScreen({super.key});
+class SignUpFirstScreen extends StatefulWidget {
+  SignUpFirstScreen({super.key});
+
+  var usernameController = TextEditingController();
+  var idController = TextEditingController();
+
+  @override
+  State<SignUpFirstScreen> createState() => _SignUpFirstScreenState();
+}
+
+class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
+  get usernameController => null;
+  
+  get idController => null;
 
   @override
   Widget build(BuildContext context) {
@@ -111,8 +123,9 @@ class SignUpFirstScreen extends StatelessWidget {
                   height: 20,
                 ),
                 TextFieldContainer(
-                  child: const TextField(
-                    decoration: InputDecoration(
+                  child: TextField(
+                    controller: usernameController,
+                    decoration: const InputDecoration(
                       icon: Icon(
                         Icons.edit,
                         color: black,
@@ -123,8 +136,9 @@ class SignUpFirstScreen extends StatelessWidget {
                   ),
                 ),
                 TextFieldContainer(
-                    child: const TextField(
-                  decoration: InputDecoration(
+                    child: TextField(
+                      controller: idController,
+                  decoration: const InputDecoration(
                     icon: Icon(
                       Icons.store,
                       color: black,
