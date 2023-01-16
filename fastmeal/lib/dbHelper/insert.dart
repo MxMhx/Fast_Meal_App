@@ -10,6 +10,13 @@ class MongoDbInsert extends StatefulWidget {
 class _MongoDbInsertState extends State<MongoDbInsert> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: SafeArea(
+          child: Column(
+        children: [
+          Text('Insert Data'),
+        ],
+      )),
+    );
   }
 }
