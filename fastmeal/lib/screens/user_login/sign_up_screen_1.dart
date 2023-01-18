@@ -1,24 +1,25 @@
 // ignore_for_file: unused_import, must_be_immutable
 
+import 'package:faker/faker.dart';
+import 'package:fastmeal/dbHelper/mongodb.dart';
 import 'package:fastmeal/shared/constant.dart';
 import 'package:fastmeal/widgets/textfieldwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:fastmeal/widgets/button.dart';
+import 'package:fastmeal/dbHelper/MongoDBModel.dart';
+import 'package:mongo_dart/mongo_dart.dart' as M;
 
 class SignUpFirstScreen extends StatefulWidget {
   SignUpFirstScreen({super.key});
-
-  var usernameController = TextEditingController();
-  var idController = TextEditingController();
 
   @override
   State<SignUpFirstScreen> createState() => _SignUpFirstScreenState();
 }
 
 class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
-  get usernameController => null;
-  
-  get idController => null;
+
+  var usernameController = TextEditingController();
+  var idController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -173,11 +174,30 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
                     fieldcolor: orange,
                     textsize: 20,
                     onTap: () {
-                      Navigator.pushNamed(context, '/signups');
+                      _insertData(usernameController.text, idController.text);
                     })
               ],
             ),
           )),
         ));
+  }
+
+  Future<void> _insertData(String username,String idcode) async {
+    var _id = M.ObjectId(); //This will use for unique ID
+    final data = Welcome(id: _id, username: username, code: idcode);
+    var result = await MongoDatabase.insert(data);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Insert ID' + _id.$oid)));
+    _clearAll();
+  }
+
+  void _clearAll() {
+    
+  }
+
+  void _fakeData(){
+    setState(() {
+      usernameController.text = faker.person.name();
+      idController.text = faker.address.zipCode();
+    });
   }
 }
