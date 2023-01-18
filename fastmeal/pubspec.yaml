@@ -42,6 +42,8 @@ dependencies:
   mongo_dart: ^0.8.2
   api_cache_manager: ^1.0.2
   snippet_coder_utils: ^1.0.12
+  flutter_progress_hud: ^2.0.2
+  modal_progress_hud_alt: ^1.0.0
 
 dev_dependencies:
   flutter_test:

@@ -26,7 +26,7 @@ class APIService {
 
     if (response.statusCode == 200) {
       //SHARED
-      await SharedService.setLoginDetails(loginRequestFromJson(response.body));
+      await SharedService.setLoginDetails(loginResponseFromJson(response.body));
       return true;
     } else {
       return false;
