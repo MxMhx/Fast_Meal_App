@@ -40,6 +40,8 @@ dependencies:
   provider: ^6.0.5
   
   mongo_dart: ^0.8.2
+  api_cache_manager: ^1.0.2
+  snippet_coder_utils: ^1.0.12
 
 dev_dependencies:
   flutter_test:

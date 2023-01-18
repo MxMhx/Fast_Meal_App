@@ -3,15 +3,12 @@
 import 'package:fastmeal/shared/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:fastmeal/widgets/button.dart';
-import 'package:fastmeal/data/profile.dart';
 import 'package:fastmeal/widgets/textfieldwidget.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
-
-  Profile profile = Profile();
 
   @override
   Widget build(BuildContext context) {
