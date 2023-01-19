@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "13451873571",
+    "project_id": "fastmealapplication",
+    "storage_bucket": "fastmealapplication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:13451873571:android:31e22e1d0cf2db277a5096",
+        "android_client_info": {
+          "package_name": "com.example.fastmeal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "13451873571-apfscuscpet4ialb5nq8b4kd9o475r70.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbLZ1qW_ffIhGHuQySL0olwNxKSMyZS9g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "13451873571-apfscuscpet4ialb5nq8b4kd9o475r70.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

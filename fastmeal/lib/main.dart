@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'screens/user_login/welcome_screen.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await MongoDatabase.connect();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await MongoDatabase.connect();
   runApp(const MyApp());
 }
 

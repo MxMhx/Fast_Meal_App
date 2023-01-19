@@ -36,8 +36,10 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  faker: ^2.1.0
   provider: ^6.0.5
+  form_field_validator: ^1.1.0
+  firebase_core: ^2.4.1
+  firebase_auth: ^4.2.5
   
   mongo_dart: ^0.8.2
   api_cache_manager: ^1.0.2
