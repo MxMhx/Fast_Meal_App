@@ -2,7 +2,6 @@ import 'package:fastmeal/dbHelper/mongodb.dart';
 import 'package:fastmeal/screens/home/home_screen.dart';
 import 'package:fastmeal/screens/user_login/login_screen.dart';
 import 'package:fastmeal/screens/user_login/sign_up_screen_1.dart';
-import 'package:fastmeal/screens/user_login/sign_up_screen_2.dart';
 import 'package:flutter/material.dart';
 import 'screens/user_login/welcome_screen.dart';
 
@@ -19,12 +18,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FastMeal Flutter App',
-      initialRoute: '/login',
+      initialRoute: '/signup',
       routes: {
         '/': (context) => const WelcomeScreen(),
         '/login': (context) => LoginScreen(),
         '/signup': (context) =>  SignUpFirstScreen(),
-        '/signups' : (context) => SignUpSecondScreen(),
         '/home' : (context) => HomeScreen(),
       },
     );

@@ -17,9 +17,10 @@ class SignUpFirstScreen extends StatefulWidget {
 }
 
 class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
-
   var usernameController = TextEditingController();
   var idController = TextEditingController();
+  var emailnameController = TextEditingController();
+  var passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
         body: SingleChildScrollView(
           child: SafeArea(
               child: Padding(
-            padding: const EdgeInsets.all(40),
+            padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 40),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -50,24 +51,12 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
                     height: 3,
                   ),
                 ),
-                Row(
-                  children: [
-                    Text(
-                      'Fast Meal',
-                      style: bold.copyWith(
-                        color: light_orange,
-                        fontSize: 20,
-                      ),
-                    ),
-                    const Spacer(),
-                    Text(
-                      '1/2',
-                      style: bold.copyWith(
-                        color: light_orange,
-                        fontSize: 20,
-                      ),
-                    )
-                  ],
+                Text(
+                  'Fast Meal',
+                  style: bold.copyWith(
+                    color: light_orange,
+                    fontSize: 20,
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
@@ -138,7 +127,7 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
                 ),
                 TextFieldContainer(
                     child: TextField(
-                      controller: idController,
+                  controller: idController,
                   decoration: const InputDecoration(
                     icon: Icon(
                       Icons.store,
@@ -148,6 +137,8 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
                     border: InputBorder.none,
                   ),
                 )),
+                InputEmailField(controller: emailnameController),
+                InputPasswordlField(controller: passwordController),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -168,13 +159,13 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
                   ],
                 ),
                 ButtonWidget(
-                    text: 'ถัดไป',
+                    text: 'ลงชื่อเข้าใช้',
                     textcolor: black,
                     bordercolor: orange,
                     fieldcolor: orange,
                     textsize: 20,
                     onTap: () {
-                      _insertData(usernameController.text, idController.text);
+                      _insertData(usernameController.text, idController.text, emailnameController.text, passwordController.text);
                     })
               ],
             ),
@@ -182,23 +173,104 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
         ));
   }
 
-  Future<void> _insertData(String username,String idcode) async {
+  Future<void> _insertData(String username, String storecode, String email, String password) async {
     var _id = M.ObjectId(); //This will use for unique ID
-    final data = Welcome(id: _id, username: username, code: idcode);
+    final data = RegisterModel(username: username, storecode: storecode, email: email, password: password, id: _id);
     var result = await MongoDatabase.insert(data);
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Insert ID' + _id.$oid)));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('Insert ID' + _id.$oid)));
     _clearAll();
   }
 
   void _clearAll() {
     usernameController.text = '';
     idController.text = '';
+    emailnameController.text = '';
+    passwordController.text = '';
   }
 
-  void _fakeData(){
+  void _fakeData() {
     setState(() {
       usernameController.text = faker.person.name();
       idController.text = faker.address.zipCode();
     });
+  }
+}
+
+class InputEmailField extends StatelessWidget {
+  InputEmailField({
+    super.key,
+    required this.controller,
+  });
+
+  TextEditingController? controller;
+  @override
+  Widget build(BuildContext context) {
+    return TextFieldContainer(
+      child: TextField(
+        controller: controller,
+        keyboardType: TextInputType.emailAddress,
+        decoration: const InputDecoration(
+          icon: Icon(
+            Icons.person,
+            color: black,
+          ),
+          hintText: 'Email',
+          border: InputBorder.none,
+        ),
+      ),
+    );
+  }
+}
+
+class InputPasswordlField extends StatefulWidget {
+  InputPasswordlField({super.key, required this.controller});
+
+  TextEditingController? controller;
+
+  @override
+  State<InputPasswordlField> createState() => _InputPasswordlFieldState();
+}
+
+class _InputPasswordlFieldState extends State<InputPasswordlField> {
+  bool _obscureText = true;
+
+  get controller => null;
+
+  @override
+  void initState() {
+    super.initState();
+    _obscureText = true;
+  }
+
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFieldContainer(
+      child: TextField(
+        controller: controller,
+        obscureText: _obscureText,
+        decoration: InputDecoration(
+          icon: const Icon(
+            Icons.lock,
+            color: black,
+          ),
+          hintText: 'password',
+          suffixIcon: IconButton(
+            icon: Icon(
+              _obscureText ? Icons.visibility : Icons.visibility_off,
+              color: black,
+            ),
+            onPressed: _toggle,
+          ),
+          border: InputBorder.none,
+        ),
+      ),
+    );
   }
 }

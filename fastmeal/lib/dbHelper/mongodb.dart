@@ -14,7 +14,7 @@ class MongoDatabase {
   }
 
   //Function for button click to call insert Data
-  static Future<String> insert(Welcome data) async {
+  static Future<String> insert(RegisterModel data) async {
     try {
       var result = await userCollection.insertOne(data.toJson());
       if(result.isSuccess){

@@ -1,35 +1,43 @@
 // To parse this JSON data, do
 //
-//     final welcome = welcomeFromJson(jsonString);
+//     final registerModel = registerModelFromJson(jsonString);
 
 import 'dart:convert';
 
 import 'package:mongo_dart/mongo_dart.dart';
 
-Welcome? welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
+RegisterModel registerModelFromJson(String str) => RegisterModel.fromJson(json.decode(str));
 
-String welcomeToJson(Welcome? data) => json.encode(data!.toJson());
+String registerModelToJson(RegisterModel data) => json.encode(data.toJson());
 
-class Welcome {
-    Welcome({
-        required this.id,
+class RegisterModel {
+    RegisterModel({
         required this.username,
-        required this.code,
+        required this.storecode,
+        required this.email,
+        required this.password,
+        required this.id,
     });
 
+    String username;
+    String storecode;
+    String email;
+    String password;
     ObjectId id;
-    String? username;
-    String? code;
 
-    factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
-        id: json["_id"],
+    factory RegisterModel.fromJson(Map<String, dynamic> json) => RegisterModel(
         username: json["username"],
-        code: json["code"],
+        storecode: json["storecode"],
+        email: json["email"],
+        password: json["password"],
+        id: json["id"],
     );
 
     Map<String, dynamic> toJson() => {
-        "_id": id,
         "username": username,
-        "email": code,
+        "storecode": storecode,
+        "email": email,
+        "password": password,
+        "id": id,
     };
 }
