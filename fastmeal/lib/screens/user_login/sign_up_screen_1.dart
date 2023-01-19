@@ -191,7 +191,8 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
   }
 
   void _clearAll() {
-    
+    usernameController.text = '';
+    idController.text = '';
   }
 
   void _fakeData(){

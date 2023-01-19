@@ -1,5 +1,7 @@
 // ignore_for_file: unused_import, must_be_immutable
 
+import 'package:fastmeal/models/login_request_model.dart';
+import 'package:fastmeal/services/api_service.dart';
 import 'package:fastmeal/shared/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:fastmeal/widgets/button.dart';
@@ -29,82 +31,63 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
       backgroundColor: black,
-      body: ModalProgressHUD(
-        key: UniqueKey(),
-        inAsyncCall: isAPIcallProcess,
-        opacity: 0.3,
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
           child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(40.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(
-                        Icons.arrow_back_rounded,
-                        color: white,
-                        size: 30,
-                      )),
-                  Text(
-                    'เข้าสู่ระบบ',
-                    style: bold.copyWith(
+              child: Padding(
+            padding: const EdgeInsets.all(40),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/');
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back_rounded,
                       color: white,
-                      fontSize: 30,
-                      height: 3,
-                    ),
+                      size: 30,
+                    )),
+                Text(
+                  'ลงชื่อเข้าใช้',
+                  style: bold.copyWith(
+                    color: white,
+                    fontSize: 30,
+                    height: 3,
                   ),
-                  Text(
-                    'Fast Meal',
-                    style: bold.copyWith(
-                      color: light_orange,
-                      fontSize: 20,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'Fast Meal',
+                      style: bold.copyWith(
+                        color: light_orange,
+                        fontSize: 20,
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  Form(
-                    key: globalFormKey,
-                    child: Column(
-                      children: const [
-                        InputEmailField(),
-                        InputPasswordlField(),
-                      ],
-                    ),
-                  ),
-                  const Spacer(),
-                  ButtonWidget(
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                ButtonWidget(
                     text: 'เข้าสู่ระบบ',
                     textcolor: black,
                     bordercolor: orange,
                     fieldcolor: orange,
                     textsize: 20,
-                    onTap: () {},
-                  )
-                ],
-              ),
+                    onTap: () {
+                    })
+              ],
             ),
-          ),
-        ),
-      ),
+          )),
+        )
     );
-  }
-
-  bool validateAndSave() {
-    final form = globalFormKey.currentState;
-    if (form!.validate()) {
-      form.save();
-      return true;
-    } else {
-      return false;
-    }
   }
 }
 
 class InputEmailField extends StatelessWidget {
-  const InputEmailField({super.key});
+  InputEmailField({super.key, required this.email});
+  String? email;
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +108,8 @@ class InputEmailField extends StatelessWidget {
 }
 
 class InputPasswordlField extends StatefulWidget {
-  const InputPasswordlField({super.key});
+  InputPasswordlField({super.key, required this.password});
+  String? password;
 
   @override
   State<InputPasswordlField> createState() => _InputPasswordlFieldState();
@@ -149,7 +133,7 @@ class _InputPasswordlFieldState extends State<InputPasswordlField> {
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: TextField(
+      child: TextFormField(
         obscureText: _obscureText,
         decoration: InputDecoration(
           icon: const Icon(
