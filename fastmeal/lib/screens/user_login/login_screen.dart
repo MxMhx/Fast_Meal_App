@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       size: 30,
                     )),
                 Text(
-                  'ลงชื่อเข้าใช้',
+                  'เข้าสู่ระบบ',
                   style: bold.copyWith(
                     color: white,
                     fontSize: 30,

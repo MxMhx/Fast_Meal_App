@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FastMeal Flutter App',
-      initialRoute: '/signup',
+      initialRoute: '/login',
       routes: {
         '/': (context) => const WelcomeScreen(),
         '/login': (context) => LoginScreen(),

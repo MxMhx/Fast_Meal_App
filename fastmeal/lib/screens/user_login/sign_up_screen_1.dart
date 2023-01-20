@@ -10,6 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fastmeal/widgets/button.dart';
 import 'package:fastmeal/dbHelper/MongoDBModel.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:mongo_dart/mongo_dart.dart' as M;
 
@@ -208,15 +209,38 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
                                 bordercolor: orange,
                                 fieldcolor: orange,
                                 textsize: 20,
-                                onTap: () {
+                                onTap: () async {
                                   if (formKey.currentState!.validate()) {
                                     formKey.currentState!.save();
-                                    FirebaseAuth.instance
-                                        .createUserWithEmailAndPassword(
-                                      email: userprofile.email.toString(),
-                                      password: userprofile.password.toString(),
-                                    );
-                                    formKey.currentState!.reset();
+                                    try {
+                                      await FirebaseAuth.instance
+                                          .createUserWithEmailAndPassword(
+                                        email: userprofile.email.toString(),
+                                        password:
+                                            userprofile.password.toString(),
+                                      )
+                                          .then((value) {
+                                        formKey.currentState!.reset();
+                                        Navigator.pushNamed(context, '/login');
+                                      });
+                                    } on FirebaseAuthException catch (e) {
+                                      print(e.message);
+                                      print(e.code);
+                                      String message;
+                                      if (e.code == 'email-already-in-use') {
+                                        message =
+                                            'อีเมลนี้ถูกใช้ไปแล้ว กรุณาใช้บัญชีอื่นหรือล็อกอิน';
+                                      } else if (e.code == 'weak-password') {
+                                        message =
+                                            'รหัสผ่านต้องมีความยาว 6 ตัวอักษรขึ้นไป';
+                                      } else {
+                                        message = e.message.toString();
+                                      }
+                                      Fluttertoast.showToast(
+                                        msg: message,
+                                        gravity: ToastGravity.CENTER,
+                                      );
+                                    }
                                   }
                                 },
                               ),
