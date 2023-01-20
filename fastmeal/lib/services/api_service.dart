@@ -1,51 +1,16 @@
 import 'dart:convert';
 
-import 'package:fastmeal/config.dart';
-import 'package:fastmeal/models/login_request_model.dart';
-import 'package:fastmeal/models/login_response_model.dart';
-import 'package:fastmeal/models/register_request_model.dart';
-import 'package:fastmeal/models/register_respone_model.dart';
-import 'package:fastmeal/services/shared_service.dart';
 import 'package:http/http.dart' as http;
+import 'package:fastmeal/services/ordermodel.dart';
 
 class APIService {
-  static var client = http.Client();
+  late List<OrderModel> _dataFromAPI;
 
-  static Future<bool> login(LoginRequest model) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
-
-    var url = Uri.http(Config.apiURL, Config.loginAPI);
-
-    var response = await client.post(
-      url,
-      headers: requestHeaders,
-      body: jsonEncode(model.toJson()),
-    );
-
-    if (response.statusCode == 200) {
-      //SHARED
-      await SharedService.setLoginDetails(loginResponseFromJson(response.body));
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  static Future<RegisterResponse?> register(RegisterRequest model) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
-
-    var url = Uri.http(Config.apiURL, Config.registerAPI);
-
-    var response = await client.post(
-      url,
-      headers: requestHeaders,
-      body: jsonEncode(model.toJson()),
-    );
-
-    return registerResponseFromJson(response.body);
+  Future<void> getOrder() async{
+    var url = Uri(scheme: 'https',host: '63cad10a4f53a004202b9d38.mockapi.io',path: '/myshop/orders/testorder');
+    var response = await http.get(url);
+    setState((){
+      _dataFromAPI = orderModelFromJson(response.body); //JSON to Dart object
+    });
   }
 }

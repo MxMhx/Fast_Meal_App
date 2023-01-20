@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:fastmeal/shared/constant.dart';
 import 'package:fastmeal/widgets/button.dart';
+import 'package:fastmeal/services/api_service.dart';
 
-class OrderContainer extends StatelessWidget {
+class OrderContainer extends StatefulWidget {
   OrderContainer({super.key});
 
+  @override
+  State<OrderContainer> createState() => _OrderContainerState();
+}
+
+class _OrderContainerState extends State<OrderContainer> {
   final List<OrderModel> ordermodel = [
     OrderModel(
         name: 'รรรรร',
@@ -19,6 +25,14 @@ class OrderContainer extends StatelessWidget {
         note: [''],
         price: [60]),
   ];
+
+  final getorder = APIService();
+
+  @override
+  void initState() {
+    super.initState();
+    getorder.getOrder();
+  }
 
   @override
   Widget build(BuildContext context) {
