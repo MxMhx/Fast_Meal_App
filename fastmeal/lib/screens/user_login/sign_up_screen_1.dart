@@ -1,6 +1,4 @@
 // ignore_for_file: unused_import, must_be_immutable
-
-import 'package:fastmeal/dbHelper/mongodb.dart';
 import 'package:fastmeal/data/user_profile.dart';
 import 'package:fastmeal/models/login_response_model.dart';
 import 'package:fastmeal/shared/constant.dart';
@@ -9,7 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fastmeal/widgets/button.dart';
-import 'package:fastmeal/dbHelper/MongoDBModel.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:mongo_dart/mongo_dart.dart' as M;
