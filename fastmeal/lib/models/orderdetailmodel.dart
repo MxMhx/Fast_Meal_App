@@ -133,7 +133,7 @@ class OrderItem {
         quantity: json["quantity"],
         sku: json["sku"],
         variantId: json["variantId"],
-        variants: List<Variant>.from(json["variants"].map((x) => Variant.fromJson(x))),
+        variants: json["variants"] != null ? List<Variant>.from(json["variants"].map((x) => Variant.fromJson(x))) : [],
         weight: json["weight"],
     );
 

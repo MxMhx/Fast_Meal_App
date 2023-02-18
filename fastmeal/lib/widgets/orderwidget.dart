@@ -1,25 +1,27 @@
-import 'package:fastmeal/models/ordermodel.dart';
+import 'package:fastmeal/models/orderdetailmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:fastmeal/models/ordermodel.dart';
 import 'package:fastmeal/shared/constant.dart';
 import 'package:fastmeal/widgets/button.dart';
 import 'package:fastmeal/services/api_service.dart';
 
-class OrderContainer extends StatefulWidget {
-  OrderContainer({super.key});
+class GetOrderContainer extends StatefulWidget {
+  GetOrderContainer({super.key});
 
   @override
-  State<OrderContainer> createState() => _OrderContainerState();
+  State<GetOrderContainer> createState() => _GetOrderContainerState();
 }
 
-class _OrderContainerState extends State<OrderContainer> {
+class _GetOrderContainerState extends State<GetOrderContainer> {
   final getAPI = APIService();
+  late Future<Orderdetailmodel?> orderDetail;
   late Future<Ordermodel?> order;
 
   @override
   void initState() {
     super.initState();
-    getAPI.getallProduct();
     order = getAPI.getOrder();
+    getAPI.getOrderDetail();
   }
 
   @override

@@ -24,6 +24,10 @@ class _HomeScreenState extends State<HomeScreen> {
     'ส่งแล้ว'
   ];
 
+  List<Widget> tabs_widget = [
+    GetOrderContainer(),
+  ];
+
   int current = 0;
 
   @override
@@ -112,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       }),
                 ),
-                OrderContainer()
+                tabs_widget[current],
               ],
             ),
           ),
