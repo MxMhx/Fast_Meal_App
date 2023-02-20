@@ -14,41 +14,75 @@ class GetOrderContainer extends StatefulWidget {
 
 class _GetOrderContainerState extends State<GetOrderContainer> {
   final getAPI = APIService();
-  late Future<Orderdetailmodel?> orderDetail;
-  late Future<Ordermodel?> order;
+  late Future<List<Orderdetailmodel>> orderDetail;
+  late Future<Ordermodel> order;
+
+  int currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
     order = getAPI.getOrder();
-    getAPI.getOrderDetail();
+    orderDetail = getAPI.getOrderDetail();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Ordermodel?>(
-      future: order,
+    return FutureBuilder<List<Orderdetailmodel>>(
+      future: orderDetail,
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return ListView.builder(
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
-            itemCount: snapshot.data.data.length,
+            itemCount: snapshot.data.length,
             itemBuilder: (context, index) {
               return Container(
-                margin: EdgeInsets.only(top: 12),
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(color: light_orange,borderRadius: BorderRadius.circular(20)),
+                margin: const EdgeInsets.only(top: 12),
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                    color: light_orange,
+                    borderRadius: BorderRadius.circular(20)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'ชื่อ ${snapshot.data.data[index].shipmentDetail.name}',
+                      'ชื่อ ${snapshot.data[index].shippingAddress.recipientName}',
                       style: light.copyWith(fontSize: 15),
                     ),
-                    Text(
-                      'เมนูที่สั่ง',
-                      style: light.copyWith(fontSize: 15),
+                    Container(
+                      child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: snapshot.data[index].orderItems.length,
+                          itemBuilder: (context2, index2) {
+                            return Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      '${snapshot.data[index].orderItems[index2].name}',
+                                      style: light.copyWith(fontSize: 15),
+                                    ),
+                                    Spacer(),
+                                    Text(
+                                      'x${snapshot.data[index].orderItems[index2].quantity}',
+                                      style: light.copyWith(fontSize: 15),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Spacer(),
+                                    Text(
+                                      '${snapshot.data[index].orderItems[index2].price * snapshot.data[index].orderItems[index2].quantity} บาท',
+                                      style: light.copyWith(fontSize: 15),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            );
+                          }),
                     ),
                     Row(
                       children: [
@@ -58,14 +92,143 @@ class _GetOrderContainerState extends State<GetOrderContainer> {
                         ),
                         Spacer(),
                         Text(
-                          '${snapshot.data.data[index].totalPrice.toString()}',
+                          '${snapshot.data[index].totalPrice} บาท',
                           style: light.copyWith(fontSize: 15),
                         )
                       ],
                     ),
                     //remark Buyer
-                    Text('หมายเหตุ ${snapshot.data.data[index].remarkBuyer}', style: light.copyWith(fontSize: 15)),
-                    Text('จัดส่ง : ', style: light.copyWith(fontSize: 15)),
+                    Text('หมายเหตุ ${snapshot.data[index].remarkBuyer}',
+                        style: light.copyWith(fontSize: 15)),
+                    Text('จัดส่ง : ${snapshot.data[index].shippingAddress.address}', style: light.copyWith(fontSize: 15)),
+                    ButtonWidget(
+                      text: 'รายละเอียด',
+                      textcolor: black,
+                      bordercolor: orange,
+                      fieldcolor: orange,
+                      textsize: 15,
+                      onTap: () {
+                        print('${snapshot.data[index].orderNumber}');
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        }
+        return CircularProgressIndicator();
+      },
+    );
+  }
+}
+
+class CompleteOrderContainer extends StatefulWidget {
+  const CompleteOrderContainer({super.key});
+
+  @override
+  State<CompleteOrderContainer> createState() => _CompleteOrderContainerState();
+}
+
+class _CompleteOrderContainerState extends State<CompleteOrderContainer> {
+  final getAPI = APIService();
+  late Future<List<Orderdetailmodel>> orderDetail;
+  late Future<Ordermodel> order;
+
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    order = getAPI.getOrder();
+    orderDetail = getAPI.getCompleteOrder();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<Orderdetailmodel>>(
+      future: orderDetail,
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: snapshot.data.length,
+            itemBuilder: (context, index) {
+              return Container(
+                margin: const EdgeInsets.only(top: 12),
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                    color: light_orange,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'ชื่อ ${snapshot.data[index].shippingAddress.recipientName}',
+                      style: light.copyWith(fontSize: 15),
+                    ),
+                    Container(
+                      child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: snapshot.data[index].orderItems.length,
+                          itemBuilder: (context2, index2) {
+                            return Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      '${snapshot.data[index].orderItems[index2].name}',
+                                      style: light.copyWith(fontSize: 15),
+                                    ),
+                                    Spacer(),
+                                    Text(
+                                      'x${snapshot.data[index].orderItems[index2].quantity}',
+                                      style: light.copyWith(fontSize: 15),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Spacer(),
+                                    Text(
+                                      '${snapshot.data[index].orderItems[index2].price * snapshot.data[index].orderItems[index2].quantity} บาท',
+                                      style: light.copyWith(fontSize: 15),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            );
+                          }),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'รวม',
+                          style: light.copyWith(fontSize: 15),
+                        ),
+                        Spacer(),
+                        Text(
+                          '${snapshot.data[index].totalPrice} บาท',
+                          style: light.copyWith(fontSize: 15),
+                        )
+                      ],
+                    ),
+                    //remark Buyer
+                    Text('หมายเหตุ ${snapshot.data[index].remarkBuyer}',
+                        style: light.copyWith(fontSize: 15)),
+                    Text('จัดส่ง : ${snapshot.data[index].shippingAddress.address}', style: light.copyWith(fontSize: 15)),
+                    ButtonWidget(
+                      text: 'รายละเอียด',
+                      textcolor: black,
+                      bordercolor: orange,
+                      fieldcolor: orange,
+                      textsize: 15,
+                      onTap: () {
+                        print('${snapshot.data[index].orderNumber}');
+                      },
+                    ),
                   ],
                 ),
               );

@@ -10,22 +10,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<IconData> icons = [
-    Icons.home,
-    Icons.search_rounded,
-    Icons.person,
-    Icons.settings,
-  ];
 
   List<String> tabs = [
-    'รับออเดอร์',
-    'ออเดอร์ที่รับแล้ว',
-    'กำลังจัดส่ง',
-    'ส่งแล้ว'
+    'จัดการออเดอร์',
+    'เสร็จสิ้น',
   ];
 
   List<Widget> tabs_widget = [
     GetOrderContainer(),
+    CompleteOrderContainer(),
   ];
 
   int current = 0;
@@ -76,10 +69,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                   ],
                 ),
-                SizedBox(
-                  height: 40,
+                Container(
+                  height: 60,
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(color: light_orange,borderRadius: BorderRadius.circular(10)),
                   child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: tabs.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
@@ -92,14 +87,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 300),
                             child: Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                              width: size.width * 0.5,
                               decoration: BoxDecoration(
-                                color: current == index ? orange : white,
-                                borderRadius: BorderRadius.circular(30),
-                                border: Border.all(
-                                  color: orange,
-                                  width: 2,
-                                ),
+                                color: current == index ? orange : white.withOpacity(0),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                               child: Center(
                                   child: Container(

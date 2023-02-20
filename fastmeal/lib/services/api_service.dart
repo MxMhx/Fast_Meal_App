@@ -26,9 +26,8 @@ class APIService {
       return order_number_list;
     }
   }
-
   
-  Future<Ordermodel?> getOrder() async {
+  Future<Ordermodel> getOrder() async {
     Ordermodel data_Order;
     //https://developers-oaplus.line.biz/myshop/v1/orders
     var url = Uri(
@@ -40,12 +39,10 @@ class APIService {
       "X-API-KEY": "MTE3NDliZmMtZjYwMC00MTRmLWFiYzMtMzI2MzljNWNkNGU3"
     });
     data_Order = ordermodelFromJson(response.body);
-    if (response.statusCode == 200) {
-      return data_Order;
-    }
+    return data_Order;
   }
 
-  Future<List<Orderdetailmodel>?> getOrderDetail() async {
+  Future<List<Orderdetailmodel>> getOrderDetail() async {
     List<String>? orderNumberList = await getOrderNumber();
     List<Orderdetailmodel> dataDetail = [];
     Orderdetailmodel tempdataDetail;
@@ -61,6 +58,28 @@ class APIService {
       });
       tempdataDetail = orderdetailmodelFromJson(response.body);
       if (tempdataDetail.orderStatus == "FINALIZED" && tempdataDetail.paymentStatus == "PENDING" && tempdataDetail.shipmentStatus == "SHIPMENT_READY"){
+        dataDetail.add(tempdataDetail);
+      }
+    }
+    return dataDetail;
+  }
+
+  Future<List<Orderdetailmodel>> getCompleteOrder() async {
+    List<String>? orderNumberList = await getOrderNumber();
+    List<Orderdetailmodel> dataDetail = [];
+    Orderdetailmodel tempdataDetail;
+    for (var i = 0; i < orderNumberList!.length; i++) {
+      //https://developers-oaplus.line.biz/myshop/v1/orders/{orderNo}
+      var url = Uri(
+        scheme: 'https',
+        host: 'developers-oaplus.line.biz',
+        path: '/myshop/v1/orders/${orderNumberList[i]}',
+      );
+      var response = await http.get(url, headers: {
+        "X-API-KEY": "MTE3NDliZmMtZjYwMC00MTRmLWFiYzMtMzI2MzljNWNkNGU3"
+      });
+      tempdataDetail = orderdetailmodelFromJson(response.body);
+      if (tempdataDetail.orderStatus == "COMPLETED" && tempdataDetail.paymentStatus == "PAID" && tempdataDetail.shipmentStatus == "SHIPPED_ALL"){
         dataDetail.add(tempdataDetail);
       }
     }
