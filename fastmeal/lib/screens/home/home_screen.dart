@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 300),
                             child: Container(
-                              width: size.width * 0.5,
+                              width: MediaQuery.of(context).size.width / 2,
                               decoration: BoxDecoration(
                                 color: current == index ? orange : white.withOpacity(0),
                                 borderRadius: BorderRadius.circular(10),
