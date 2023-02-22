@@ -27,18 +27,18 @@ class APIService {
     }
   }
   
-  Future<Ordermodel> getOrder() async {
-    Ordermodel data_Order;
+  Future<Orderdetailmodel> getOrder(String orderNumber) async {
+    Orderdetailmodel data_Order;
     //https://developers-oaplus.line.biz/myshop/v1/orders
     var url = Uri(
       scheme: 'https',
       host: 'developers-oaplus.line.biz',
-      path: '/myshop/v1/orders',
+      path: '/myshop/v1/orders/${orderNumber}',
     );
     var response = await http.get(url, headers: {
       "X-API-KEY": "MTE3NDliZmMtZjYwMC00MTRmLWFiYzMtMzI2MzljNWNkNGU3"
     });
-    data_Order = ordermodelFromJson(response.body);
+    data_Order = orderdetailmodelFromJson(response.body);
     return data_Order;
   }
 

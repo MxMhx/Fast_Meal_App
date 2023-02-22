@@ -71,6 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Container(
                   height: 60,
+                  width: double.infinity,
                   padding: EdgeInsets.all(5),
                   decoration: BoxDecoration(color: light_orange,borderRadius: BorderRadius.circular(10)),
                   child: ListView.builder(
@@ -87,15 +88,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 300),
                             child: Container(
-                              width: MediaQuery.of(context).size.width / 2,
+                              width: (size.width / 2) - 17,
                               decoration: BoxDecoration(
                                 color: current == index ? orange : white.withOpacity(0),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Center(
                                   child: Container(
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 20),
                                 child: Text(
                                   tabs[index],
                                   style:

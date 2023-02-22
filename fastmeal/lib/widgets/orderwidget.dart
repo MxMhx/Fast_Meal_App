@@ -4,6 +4,8 @@ import 'package:fastmeal/models/ordermodel.dart';
 import 'package:fastmeal/shared/constant.dart';
 import 'package:fastmeal/widgets/button.dart';
 import 'package:fastmeal/services/api_service.dart';
+import 'package:provider/provider.dart';
+import 'package:fastmeal/provider/DetailProvider.dart';
 
 class GetOrderContainer extends StatefulWidget {
   GetOrderContainer({super.key});
@@ -15,14 +17,12 @@ class GetOrderContainer extends StatefulWidget {
 class _GetOrderContainerState extends State<GetOrderContainer> {
   final getAPI = APIService();
   late Future<List<Orderdetailmodel>> orderDetail;
-  late Future<Ordermodel> order;
 
   int currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    order = getAPI.getOrder();
     orderDetail = getAPI.getOrderDetail();
   }
 
@@ -109,6 +109,8 @@ class _GetOrderContainerState extends State<GetOrderContainer> {
                       textsize: 15,
                       onTap: () {
                         print('${snapshot.data[index].orderNumber}');
+                        context.read<DetailProvider>().chooseorder(snapshot.data[index].orderNumber);
+                        Navigator.pushNamed(context, '/detail');
                       },
                     ),
                   ],
@@ -133,14 +135,12 @@ class CompleteOrderContainer extends StatefulWidget {
 class _CompleteOrderContainerState extends State<CompleteOrderContainer> {
   final getAPI = APIService();
   late Future<List<Orderdetailmodel>> orderDetail;
-  late Future<Ordermodel> order;
 
   int currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    order = getAPI.getOrder();
     orderDetail = getAPI.getCompleteOrder();
   }
 
