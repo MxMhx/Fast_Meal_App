@@ -16,14 +16,14 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   List<String> tabs = [
     'รายละเอียด',
-    'การชำระเงิน',
     'การจัดส่ง',
+    'การชำระเงิน',
   ];
 
   List<Widget> tabs_widget = [
     detailWidget(),
-    paidWidget(),
     shipmentWidget(),
+    paidWidget(),
   ];
 
   int currentIndex = 0;
@@ -37,9 +37,9 @@ class _DetailScreenState extends State<DetailScreen> {
       backgroundColor: orange,
       body: SafeArea(
           child: SingleChildScrollView(
-            child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             FutureBuilder<Orderdetailmodel>(
               future: order,
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -63,29 +63,27 @@ class _DetailScreenState extends State<DetailScreen> {
                   );
                 }
                 return Container(
-                    height: size.height * 0.1,
-                    margin: EdgeInsets.all(40),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'ชื่อผู้สั่ง',
-                          style: bold.copyWith(fontSize: 23),
-                        ),
-                        Text(
-                          '',
-                          style: light.copyWith(fontSize: 18),
-                        ),
-                      ],
-                    ),
-                  );
+                  height: size.height * 0.1,
+                  margin: EdgeInsets.all(40),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'ชื่อผู้สั่ง',
+                        style: bold.copyWith(fontSize: 23),
+                      ),
+                      Text(
+                        '',
+                        style: light.copyWith(fontSize: 18),
+                      ),
+                    ],
+                  ),
+                );
               },
             ),
             Container(
               width: double.infinity,
-              constraints: BoxConstraints(
-                minHeight: size.height * 0.8
-              ),
+              constraints: BoxConstraints(minHeight: size.height * 0.8),
               decoration: const BoxDecoration(
                   color: white,
                   borderRadius: BorderRadius.only(
@@ -141,9 +139,9 @@ class _DetailScreenState extends State<DetailScreen> {
                 ],
               ),
             )
-                  ],
-                ),
-          )),
+          ],
+        ),
+      )),
     );
   }
 }

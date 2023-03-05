@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fastmeal/models/orderdetailmodel.dart';
 import 'package:fastmeal/widgets/orderwidget.dart';
 import 'package:http/http.dart' as http;
@@ -26,7 +28,7 @@ class APIService {
       return order_number_list;
     }
   }
-  
+
   Future<Orderdetailmodel> getOrder(String orderNumber) async {
     Orderdetailmodel data_Order;
     //https://developers-oaplus.line.biz/myshop/v1/orders
@@ -57,7 +59,9 @@ class APIService {
         "X-API-KEY": "MTE3NDliZmMtZjYwMC00MTRmLWFiYzMtMzI2MzljNWNkNGU3"
       });
       tempdataDetail = orderdetailmodelFromJson(response.body);
-      if (tempdataDetail.orderStatus == "FINALIZED" && tempdataDetail.paymentStatus == "PENDING" && tempdataDetail.shipmentStatus == "SHIPMENT_READY"){
+      if (tempdataDetail.orderStatus == "FINALIZED" &&
+          (tempdataDetail.paymentStatus == "PENDING" ||
+              tempdataDetail.shipmentStatus == "SHIPMENT_READY")) {
         dataDetail.add(tempdataDetail);
       }
     }
@@ -79,10 +83,31 @@ class APIService {
         "X-API-KEY": "MTE3NDliZmMtZjYwMC00MTRmLWFiYzMtMzI2MzljNWNkNGU3"
       });
       tempdataDetail = orderdetailmodelFromJson(response.body);
-      if (tempdataDetail.orderStatus == "COMPLETED" && tempdataDetail.paymentStatus == "PAID" && tempdataDetail.shipmentStatus == "SHIPPED_ALL"){
+      if (tempdataDetail.orderStatus == "COMPLETED" &&
+          tempdataDetail.paymentStatus == "PAID" &&
+          tempdataDetail.shipmentStatus == "SHIPPED_ALL") {
         dataDetail.add(tempdataDetail);
       }
     }
     return dataDetail;
+  }
+
+  Future<void> markAsShip(String orderNumber) async {
+    Orderdetailmodel data_Order;
+    //https://developers-oaplus.line.biz/myshop/v1/orders/{orderNo}/mark-as-ship
+    var url = Uri(
+      scheme: 'https',
+      host: 'developers-oaplus.line.biz',
+      path: '/myshop/v1/orders/${orderNumber}/mark-as-ship',
+    );
+    var response = await http.post(
+      url,
+      headers: {
+        "X-API-KEY": "MTE3NDliZmMtZjYwMC00MTRmLWFiYzMtMzI2MzljNWNkNGU3"
+      },
+      body: jsonEncode(<String, String> {
+        'shipmentStatus' : 'SHIPPED_ALL'
+      }),
+    );
   }
 }

@@ -8,6 +8,8 @@ const Color light_grey = Color(0xFFDFDFDF);
 const Color grey = Color(0xFFBABABA);
 const Color black = Color(0xFF010101);
 const Color white = Color(0xFFFFFFFF);
+const Color red = Color(0xFFEF0202);
+const Color green = Color(0xFF0be800);
 
 const TextStyle thin =
     TextStyle(fontFamily: 'Prompt_Light', fontWeight: FontWeight.w100);

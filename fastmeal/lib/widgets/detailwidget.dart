@@ -99,10 +99,10 @@ class _detailWidgetState extends State<detailWidget> {
                   ),
                   ButtonWidget(
                       text: 'ยกเลิกออเดอร์',
-                      textcolor: white,
-                      bordercolor: black,
-                      fieldcolor: black,
-                      textsize: 16,
+                      textcolor: red,
+                      bordercolor: red,
+                      fieldcolor: white,
+                      textsize: 17,
                       onTap: () {})
                 ],
               ),
@@ -123,40 +123,60 @@ class paidWidget extends StatefulWidget {
 class _paidWidgetState extends State<paidWidget> {
   @override
   Widget build(BuildContext context) {
+    late Future<Orderdetailmodel> order =
+        APIService().getOrder(context.watch<DetailProvider>().orderNumber);
     Size size = MediaQuery.of(context).size;
-    return Container(
-      width: size.width * 0.7,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'เก็บเงินปลายทาง',
-            style: content,
-          ),
-          Divider(
-            thickness: 0.6,
-            color: black,
-          ),
-          Text(
-            'กรุณารอลูกค้าแจ้งการชำระเงิน',
-            style: content.copyWith(color: grey),
-          ),
-          Text(
-            '115 บาท',
-            style: content,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          ButtonWidget(
-              text: 'ชำระเงินแล้ว',
-              textcolor: white,
-              bordercolor: black,
-              fieldcolor: black,
-              textsize: 16,
-              onTap: () {})
-        ],
-      ),
+    return FutureBuilder<Orderdetailmodel>(
+      future: order,
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.data.paymentStatus == 'PENDING') {
+          return Container(
+            width: size.width * 0.7,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'เก็บเงินปลายทาง',
+                  style: content,
+                ),
+                Divider(
+                  thickness: 0.6,
+                  color: black,
+                ),
+                Text(
+                  'รอสินค้าถึงลูกค้าและแจ้งการชำระเงิน',
+                  style: content.copyWith(color: grey),
+                ),
+                Text(
+                  '${snapshot.data.totalPrice} บาท',
+                  style: content,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                snapshot.data.shipmentStatus == 'SHIPPED_ALL'
+                    ? ButtonWidget(
+                        text: 'ชำระเงินแล้ว',
+                        textcolor: white,
+                        bordercolor: black,
+                        fieldcolor: black,
+                        textsize: 16,
+                        onTap: () {})
+                    : Container()
+              ],
+            ),
+          );
+        } else if (snapshot.connectionState == ConnectionState.done) {
+          return Container(
+            child: Text(
+              'ชำระเงินแล้ว',
+              style: bold.copyWith(color: grey),
+            ),
+          );
+        }
+        return CircularProgressIndicator();
+      },
     );
   }
 }
@@ -171,45 +191,76 @@ class shipmentWidget extends StatefulWidget {
 class _shipmentWidgetState extends State<shipmentWidget> {
   @override
   Widget build(BuildContext context) {
+    late Future<Orderdetailmodel> order =
+        APIService().getOrder(context.watch<DetailProvider>().orderNumber);
     Size size = MediaQuery.of(context).size;
-    return Container(
-      width: size.width * 0.7,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'การจัดส่ง',
-            style: content,
-          ),
-          Text(
-            'กันตินันท์ บุญชาลี\n',
-            style: content,
-          ),
-          Text(
-            'แผนกISO กรุงเทพ\n10520 ประเทศไทย',
-            style: content.copyWith(color: grey),
-          ),
-          Text(
-            '095xxxxxxx\n',
-            style: content.copyWith(color: grey),
-          ),
-          Text(
-            'ค่าจัดส่ง\n',
-            style: content,
-          ),
-          Text(
-            'ฟรี\n',
-            style: content.copyWith(color: grey),
-          ),
-          ButtonWidget(
-              text: 'จัดส่งสินค้าแล้ว',
-              textcolor: white,
-              bordercolor: black,
-              fieldcolor: black,
-              textsize: 16,
-              onTap: () {})
-        ],
-      ),
-    );
+    return FutureBuilder<Orderdetailmodel>(
+        future: order,
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.data.shipmentStatus == 'SHIPMENT_READY') {
+            return Container(
+              width: size.width * 0.7,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'การจัดส่ง',
+                    style: content,
+                  ),
+                  Text(
+                    '${snapshot.data.shippingAddress.recipientName}\n',
+                    style: content,
+                  ),
+                  Text(
+                    '${snapshot.data.shippingAddress.address}',
+                    style: content.copyWith(color: grey),
+                  ),
+                  Text(
+                    '${snapshot.data.shippingAddress.phoneNumber}\n',
+                    style: content.copyWith(color: grey),
+                  ),
+                  Text(
+                    'ค่าจัดส่ง\n',
+                    style: content,
+                  ),
+                  Text(
+                    snapshot.data.shipmentPrice == 0
+                        ? 'ฟรี\n'
+                        : '${snapshot.data.shipmentPrice} บาท',
+                    style: content.copyWith(color: grey),
+                  ),
+                  ButtonWidget(
+                      text: 'จัดส่งสินค้าแล้ว',
+                      textcolor: white,
+                      bordercolor: black,
+                      fieldcolor: black,
+                      textsize: 16,
+                      onTap: () {
+                        setState(() {
+                          APIService().markAsShip(snapshot.data.orderNumber);
+                        });
+                      })
+                ],
+              ),
+            );
+          } else if (snapshot.connectionState == ConnectionState.done) {
+            return Container(
+              child: Column(
+                children: [
+                  Image.asset(
+                    'assets/icons/meal.png',
+                    height: size.height * 0.1,
+                  ),
+                  Text(
+                    'จัดส่งสินค้าแล้ว',
+                    style: bold.copyWith(color: red, fontSize: 20),
+                  ),
+                ],
+              ),
+            );
+          }
+          return CircularProgressIndicator();
+        });
   }
 }
