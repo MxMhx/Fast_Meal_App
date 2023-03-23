@@ -9,5 +9,6 @@ class DetailProvider extends ChangeNotifier {
     orderNumber = whatorderNumber;
     notifyListeners();
   }
+  
   get getOrderNumber => orderNumber;
 }

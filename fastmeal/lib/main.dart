@@ -1,6 +1,7 @@
 import 'package:fastmeal/provider/DetailProvider.dart';
 import 'package:fastmeal/screens/home/detail_screen.dart';
 import 'package:fastmeal/screens/home/home_screen.dart';
+import 'package:fastmeal/screens/home/slide_menu.dart';
 import 'package:fastmeal/screens/user_login/login_screen.dart';
 import 'package:fastmeal/screens/user_login/sign_up_screen_1.dart';
 import 'package:flutter/material.dart';
@@ -20,13 +21,14 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'FastMeal Flutter App',
-        initialRoute: '/home',
+        initialRoute: '/',
         routes: {
-          '/': (context) => const WelcomeScreen(),
+          '/welcome': (context) => const WelcomeScreen(),
           '/login': (context) => LoginScreen(),
-          '/signup': (context) =>  SignUpFirstScreen(),
-          '/home' : (context) => HomeScreen(),
-          '/detail' : (context) => DetailScreen(),
+          '/signup': (context) => SignUpFirstScreen(),
+          '/': (context) => HomeScreen(),
+          '/detail': (context) => DetailScreen(),
+          '/menu': (context) => SlideMenu(),
         },
       ),
     );

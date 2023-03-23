@@ -97,13 +97,30 @@ class _detailWidgetState extends State<detailWidget> {
                     thickness: 5,
                     color: black,
                   ),
-                  ButtonWidget(
-                      text: 'ยกเลิกออเดอร์',
-                      textcolor: red,
-                      bordercolor: red,
-                      fieldcolor: white,
-                      textsize: 17,
-                      onTap: () {})
+                  SizedBox(
+                    height: 10,
+                  ),
+                  snapshot.data.orderStatus == 'COMPLETED'
+                      ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "ออร์เดอร์สำเร็จแล้ว",
+                              style: bold.copyWith(fontSize: 20, color: green),
+                            )
+                          ],
+                        )
+                      : ButtonWidget(
+                          text: 'ยกเลิกออเดอร์',
+                          textcolor: red,
+                          bordercolor: red,
+                          fieldcolor: white,
+                          textsize: 17,
+                          onTap: () {
+                            print(snapshot.data.orderStatus);
+                            APIService().cancelOrder(snapshot.data.orderNumber);
+                            print(snapshot.data.orderStatus);
+                          }),
                 ],
               ),
             );
@@ -162,16 +179,28 @@ class _paidWidgetState extends State<paidWidget> {
                         bordercolor: black,
                         fieldcolor: black,
                         textsize: 16,
-                        onTap: () {})
+                        onTap: () {
+                          setState(() {
+                            APIService().markAsPaid(snapshot.data.orderNumber);
+                          });
+                        })
                     : Container()
               ],
             ),
           );
         } else if (snapshot.connectionState == ConnectionState.done) {
           return Container(
-            child: Text(
-              'ชำระเงินแล้ว',
-              style: bold.copyWith(color: grey),
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/pics/money.png',
+                  height: size.height * 0.2,
+                ),
+                Text(
+                  'ชำระเงินแล้ว',
+                  style: bold.copyWith(color: green, fontSize: 20),
+                ),
+              ],
             ),
           );
         }
@@ -249,12 +278,12 @@ class _shipmentWidgetState extends State<shipmentWidget> {
               child: Column(
                 children: [
                   Image.asset(
-                    'assets/icons/meal.png',
-                    height: size.height * 0.1,
+                    'assets/pics/deliverytruck.png',
+                    height: size.height * 0.2,
                   ),
                   Text(
                     'จัดส่งสินค้าแล้ว',
-                    style: bold.copyWith(color: red, fontSize: 20),
+                    style: bold.copyWith(color: black, fontSize: 20),
                   ),
                 ],
               ),

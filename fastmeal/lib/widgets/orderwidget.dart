@@ -108,7 +108,7 @@ class _GetOrderContainerState extends State<GetOrderContainer> {
                       fieldcolor: orange,
                       textsize: 15,
                       onTap: () {
-                        print('${snapshot.data[index].orderNumber}');
+                        print('${snapshot.data[index].orderStatus}');
                         context.read<DetailProvider>().chooseorder(snapshot.data[index].orderNumber);
                         Navigator.pushNamed(context, '/detail');
                       },
@@ -226,7 +226,9 @@ class _CompleteOrderContainerState extends State<CompleteOrderContainer> {
                       fieldcolor: orange,
                       textsize: 15,
                       onTap: () {
-                        print('${snapshot.data[index].orderNumber}');
+                        print('${snapshot.data[index].orderStatus}');
+                        context.read<DetailProvider>().chooseorder(snapshot.data[index].orderNumber);
+                        Navigator.pushNamed(context, '/detail');
                       },
                     ),
                   ],

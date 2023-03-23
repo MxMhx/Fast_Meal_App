@@ -218,7 +218,7 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
                                       )
                                           .then((value) {
                                         formKey.currentState!.reset();
-                                        Navigator.pushNamed(context, '/login');
+                                        Navigator.popAndPushNamed(context, '/login');
                                       });
                                     } on FirebaseAuthException catch (e) {
                                       print(e.message);
@@ -258,28 +258,6 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
           );
         });
   }
-
-  // Future<void> _insertData(
-  //     String username, String storecode, String email, String password) async {
-  //   var _id = M.ObjectId(); //This will use for unique ID
-  //   final data = RegisterModel(
-  //       username: username,
-  //       storecode: storecode,
-  //       email: email,
-  //       password: password,
-  //       id: _id);
-  //   var result = await MongoDatabase.insert(data);
-  //   ScaffoldMessenger.of(context)
-  //       .showSnackBar(SnackBar(content: Text('Insert ID' + _id.$oid)));
-  //   _clearAll();
-  // }
-
-  // void _clearAll() {
-  //   usernameController.text = '';
-  //   idController.text = '';
-  //   emailnameController.text = '';
-  //   passwordController.text = '';
-  // }
 }
 
 class InputEmailField extends StatelessWidget {

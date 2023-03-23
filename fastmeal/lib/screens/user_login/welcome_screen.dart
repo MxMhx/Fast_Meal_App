@@ -46,7 +46,7 @@ class WelcomeScreen extends StatelessWidget {
               fieldcolor: orange,
               textsize: 20,
               onTap: () {
-                Navigator.pushNamed(context, '/login');
+                Navigator.popAndPushNamed(context, '/login');
               },
             ),
             ButtonWidget(
@@ -56,7 +56,7 @@ class WelcomeScreen extends StatelessWidget {
               fieldcolor: white,
               textsize: 20,
               onTap: () {
-                Navigator.pushNamed(context, '/signup');
+                Navigator.popAndPushNamed(context, '/signup');
               },
             ),
             Row(

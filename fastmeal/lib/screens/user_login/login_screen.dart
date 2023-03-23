@@ -115,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           )
                                               .then((value) {
                                             formKey.currentState!.reset();
-                                            Navigator.pushNamed(
+                                            Navigator.popAndPushNamed(
                                                 context, '/home');
                                           });
                                         } on FirebaseAuthException catch (e) {

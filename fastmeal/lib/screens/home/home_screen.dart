@@ -36,7 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/menu');
+                      },
                       icon: const Icon(
                         Icons.menu_rounded,
                         color: black,

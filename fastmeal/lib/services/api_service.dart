@@ -105,9 +105,41 @@ class APIService {
       headers: {
         "X-API-KEY": "MTE3NDliZmMtZjYwMC00MTRmLWFiYzMtMzI2MzljNWNkNGU3"
       },
-      body: jsonEncode(<String, String> {
-        'shipmentStatus' : 'SHIPPED_ALL'
-      }),
+      body: jsonEncode(<String, String>{'shipmentStatus': 'SHIPPED_ALL'}),
+    );
+  }
+
+  Future<void> markAsPaid(String orderNumber) async {
+    Orderdetailmodel data_Order;
+    //https://developers-oaplus.line.biz/myshop/v1/orders/{orderNo}/mark-as-paid
+    var url = Uri(
+      scheme: 'https',
+      host: 'developers-oaplus.line.biz',
+      path: '/myshop/v1/orders/${orderNumber}/mark-as-paid',
+    );
+    var response = await http.post(
+      url,
+      headers: {
+        "X-API-KEY": "MTE3NDliZmMtZjYwMC00MTRmLWFiYzMtMzI2MzljNWNkNGU3"
+      },
+      body: jsonEncode(<String, String>{'paymentStatus': 'PAID'}),
+    );
+  }
+
+  Future<void> cancelOrder(String orderNumber) async {
+    Orderdetailmodel data_Order;
+    //https://developers-oaplus.line.biz/myshop/v1/orders/{orderNo}
+    var url = Uri(
+      scheme: 'https',
+      host: 'developers-oaplus.line.biz',
+      path: '/myshop/v1/orders/${orderNumber}',
+    );
+    var response = await http.put(
+      url,
+      headers: {
+        "X-API-KEY": "MTE3NDliZmMtZjYwMC00MTRmLWFiYzMtMzI2MzljNWNkNGU3"
+      },
+      body: jsonEncode(<String, String>{'orderStatus': 'CANCELED'}),
     );
   }
 }
