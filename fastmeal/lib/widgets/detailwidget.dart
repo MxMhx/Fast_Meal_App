@@ -1,19 +1,19 @@
 import 'package:fastmeal/models/orderdetailmodel.dart';
-import 'package:fastmeal/provider/DetailProvider.dart';
+import 'package:fastmeal/provider/detail_provider.dart';
 import 'package:fastmeal/services/api_service.dart';
 import 'package:fastmeal/shared/constant.dart';
 import 'package:fastmeal/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class detailWidget extends StatefulWidget {
-  const detailWidget({super.key});
+class DetailWidget extends StatefulWidget {
+  const DetailWidget({super.key});
 
   @override
-  State<detailWidget> createState() => _detailWidgetState();
+  State<DetailWidget> createState() => _DetailWidgetState();
 }
 
-class _detailWidgetState extends State<detailWidget> {
+class _DetailWidgetState extends State<DetailWidget> {
   @override
   Widget build(BuildContext context) {
     late Future<Orderdetailmodel> order =
@@ -46,7 +46,7 @@ class _detailWidgetState extends State<detailWidget> {
                                     '${snapshot.data.orderItems[index].name}',
                                     style: content,
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   Text(
                                     'x${snapshot.data.orderItems[index].quantity}',
                                     style: content,
@@ -55,7 +55,7 @@ class _detailWidgetState extends State<detailWidget> {
                               ),
                               Row(
                                 children: [
-                                  Spacer(),
+                                  const Spacer(),
                                   Text(
                                     '${snapshot.data.orderItems[index].price * snapshot.data.orderItems[index].quantity} บาท',
                                     style: content,
@@ -70,39 +70,39 @@ class _detailWidgetState extends State<detailWidget> {
                     '\nหมายเหตุ : ${snapshot.data.remarkBuyer}',
                     style: content,
                   ),
-                  SizedBox(height: 70),
+                  const SizedBox(height: 70),
                   Text(
                     'ยืนยันการสั่งเมื่อ: ${snapshot.data.checkoutAt}',
                     style: content.copyWith(color: grey),
                   ),
-                  Divider(
+                  const Divider(
                     color: black,
                   ),
                   Row(children: [
-                    Text(
+                    const Text(
                       'ยอดรวมทั้งสิ้น',
                       style: content,
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Text(
                       '${snapshot.data.totalPrice} บาท',
                       style: content,
                     ),
                   ]),
-                  Divider(
+                  const Divider(
                     thickness: 1,
                     color: black,
                   ),
-                  Divider(
+                  const Divider(
                     thickness: 5,
                     color: black,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   snapshot.data.orderStatus == 'COMPLETED'
                       ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               "ออร์เดอร์สำเร็จแล้ว",
@@ -117,27 +117,26 @@ class _detailWidgetState extends State<detailWidget> {
                           fieldcolor: white,
                           textsize: 17,
                           onTap: () {
-                            print(snapshot.data.orderStatus);
-                            APIService().cancelOrder(snapshot.data.orderNumber);
-                            print(snapshot.data.orderStatus);
+                            debugPrint(snapshot.data.orderStatus);
+                            debugPrint(snapshot.data.orderStatus);
                           }),
                 ],
               ),
             );
           }
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         });
   }
 }
 
-class paidWidget extends StatefulWidget {
-  const paidWidget({super.key});
+class PaidWidget extends StatefulWidget {
+  const PaidWidget({super.key});
 
   @override
-  State<paidWidget> createState() => _paidWidgetState();
+  State<PaidWidget> createState() => _PaidWidgetState();
 }
 
-class _paidWidgetState extends State<paidWidget> {
+class _PaidWidgetState extends State<PaidWidget> {
   @override
   Widget build(BuildContext context) {
     late Future<Orderdetailmodel> order =
@@ -153,11 +152,11 @@ class _paidWidgetState extends State<paidWidget> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'เก็บเงินปลายทาง',
                   style: content,
                 ),
-                Divider(
+                const Divider(
                   thickness: 0.6,
                   color: black,
                 ),
@@ -169,7 +168,7 @@ class _paidWidgetState extends State<paidWidget> {
                   '${snapshot.data.totalPrice} บาท',
                   style: content,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 snapshot.data.shipmentStatus == 'SHIPPED_ALL'
@@ -204,20 +203,20 @@ class _paidWidgetState extends State<paidWidget> {
             ),
           );
         }
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
       },
     );
   }
 }
 
-class shipmentWidget extends StatefulWidget {
-  const shipmentWidget({super.key});
+class ShipmentWidget extends StatefulWidget {
+  const ShipmentWidget({super.key});
 
   @override
-  State<shipmentWidget> createState() => _shipmentWidgetState();
+  State<ShipmentWidget> createState() => _ShipmentWidgetState();
 }
 
-class _shipmentWidgetState extends State<shipmentWidget> {
+class _ShipmentWidgetState extends State<ShipmentWidget> {
   @override
   Widget build(BuildContext context) {
     late Future<Orderdetailmodel> order =
@@ -233,7 +232,7 @@ class _shipmentWidgetState extends State<shipmentWidget> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'การจัดส่ง',
                     style: content,
                   ),
@@ -249,7 +248,7 @@ class _shipmentWidgetState extends State<shipmentWidget> {
                     '${snapshot.data.shippingAddress.phoneNumber}\n',
                     style: content.copyWith(color: grey),
                   ),
-                  Text(
+                  const Text(
                     'ค่าจัดส่ง\n',
                     style: content,
                   ),
@@ -289,7 +288,7 @@ class _shipmentWidgetState extends State<shipmentWidget> {
               ),
             );
           }
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         });
   }
 }

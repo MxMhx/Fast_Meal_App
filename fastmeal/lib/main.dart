@@ -1,4 +1,4 @@
-import 'package:fastmeal/provider/DetailProvider.dart';
+import 'package:fastmeal/provider/detail_provider.dart';
 import 'package:fastmeal/screens/home/detail_screen.dart';
 import 'package:fastmeal/screens/home/home_screen.dart';
 import 'package:fastmeal/screens/home/slide_menu.dart';
@@ -24,11 +24,11 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/welcome': (context) => const WelcomeScreen(),
-          '/login': (context) => LoginScreen(),
-          '/signup': (context) => SignUpFirstScreen(),
-          '/': (context) => HomeScreen(),
-          '/detail': (context) => DetailScreen(),
-          '/menu': (context) => SlideMenu(),
+          '/login': (context) => const LoginScreen(),
+          '/signup': (context) => const SignUpFirstScreen(),
+          '/': (context) => const HomeScreen(),
+          '/detail': (context) => const DetailScreen(),
+          '/menu': (context) => const SlideMenu(),
         },
       ),
     );

@@ -1,14 +1,13 @@
 import 'package:fastmeal/models/orderdetailmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:fastmeal/models/ordermodel.dart';
 import 'package:fastmeal/shared/constant.dart';
 import 'package:fastmeal/widgets/button.dart';
 import 'package:fastmeal/services/api_service.dart';
 import 'package:provider/provider.dart';
-import 'package:fastmeal/provider/DetailProvider.dart';
+import 'package:fastmeal/provider/detail_provider.dart';
 
 class GetOrderContainer extends StatefulWidget {
-  GetOrderContainer({super.key});
+  const GetOrderContainer({super.key});
 
   @override
   State<GetOrderContainer> createState() => _GetOrderContainerState();
@@ -64,7 +63,7 @@ class _GetOrderContainerState extends State<GetOrderContainer> {
                                       '${snapshot.data[index].orderItems[index2].name}',
                                       style: light.copyWith(fontSize: 15),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Text(
                                       'x${snapshot.data[index].orderItems[index2].quantity}',
                                       style: light.copyWith(fontSize: 15),
@@ -73,7 +72,7 @@ class _GetOrderContainerState extends State<GetOrderContainer> {
                                 ),
                                 Row(
                                   children: [
-                                    Spacer(),
+                                    const Spacer(),
                                     Text(
                                       '${snapshot.data[index].orderItems[index2].price * snapshot.data[index].orderItems[index2].quantity} บาท',
                                       style: light.copyWith(fontSize: 15),
@@ -90,7 +89,7 @@ class _GetOrderContainerState extends State<GetOrderContainer> {
                           'รวม',
                           style: light.copyWith(fontSize: 15),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Text(
                           '${snapshot.data[index].totalPrice} บาท',
                           style: light.copyWith(fontSize: 15),
@@ -100,7 +99,9 @@ class _GetOrderContainerState extends State<GetOrderContainer> {
                     //remark Buyer
                     Text('หมายเหตุ ${snapshot.data[index].remarkBuyer}',
                         style: light.copyWith(fontSize: 15)),
-                    Text('จัดส่ง : ${snapshot.data[index].shippingAddress.address}', style: light.copyWith(fontSize: 15)),
+                    Text(
+                        'จัดส่ง : ${snapshot.data[index].shippingAddress.address}',
+                        style: light.copyWith(fontSize: 15)),
                     ButtonWidget(
                       text: 'รายละเอียด',
                       textcolor: black,
@@ -108,8 +109,10 @@ class _GetOrderContainerState extends State<GetOrderContainer> {
                       fieldcolor: orange,
                       textsize: 15,
                       onTap: () {
-                        print('${snapshot.data[index].orderStatus}');
-                        context.read<DetailProvider>().chooseorder(snapshot.data[index].orderNumber);
+                        debugPrint('${snapshot.data[index].orderStatus}');
+                        context
+                            .read<DetailProvider>()
+                            .chooseorder(snapshot.data[index].orderNumber);
                         Navigator.pushNamed(context, '/detail');
                       },
                     ),
@@ -119,7 +122,7 @@ class _GetOrderContainerState extends State<GetOrderContainer> {
             },
           );
         }
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
       },
     );
   }
@@ -182,7 +185,7 @@ class _CompleteOrderContainerState extends State<CompleteOrderContainer> {
                                       '${snapshot.data[index].orderItems[index2].name}',
                                       style: light.copyWith(fontSize: 15),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Text(
                                       'x${snapshot.data[index].orderItems[index2].quantity}',
                                       style: light.copyWith(fontSize: 15),
@@ -191,7 +194,7 @@ class _CompleteOrderContainerState extends State<CompleteOrderContainer> {
                                 ),
                                 Row(
                                   children: [
-                                    Spacer(),
+                                    const Spacer(),
                                     Text(
                                       '${snapshot.data[index].orderItems[index2].price * snapshot.data[index].orderItems[index2].quantity} บาท',
                                       style: light.copyWith(fontSize: 15),
@@ -208,7 +211,7 @@ class _CompleteOrderContainerState extends State<CompleteOrderContainer> {
                           'รวม',
                           style: light.copyWith(fontSize: 15),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Text(
                           '${snapshot.data[index].totalPrice} บาท',
                           style: light.copyWith(fontSize: 15),
@@ -218,7 +221,9 @@ class _CompleteOrderContainerState extends State<CompleteOrderContainer> {
                     //remark Buyer
                     Text('หมายเหตุ ${snapshot.data[index].remarkBuyer}',
                         style: light.copyWith(fontSize: 15)),
-                    Text('จัดส่ง : ${snapshot.data[index].shippingAddress.address}', style: light.copyWith(fontSize: 15)),
+                    Text(
+                        'จัดส่ง : ${snapshot.data[index].shippingAddress.address}',
+                        style: light.copyWith(fontSize: 15)),
                     ButtonWidget(
                       text: 'รายละเอียด',
                       textcolor: black,
@@ -226,8 +231,10 @@ class _CompleteOrderContainerState extends State<CompleteOrderContainer> {
                       fieldcolor: orange,
                       textsize: 15,
                       onTap: () {
-                        print('${snapshot.data[index].orderStatus}');
-                        context.read<DetailProvider>().chooseorder(snapshot.data[index].orderNumber);
+                        debugPrint('${snapshot.data[index].orderStatus}');
+                        context
+                            .read<DetailProvider>()
+                            .chooseorder(snapshot.data[index].orderNumber);
                         Navigator.pushNamed(context, '/detail');
                       },
                     ),
@@ -237,7 +244,7 @@ class _CompleteOrderContainerState extends State<CompleteOrderContainer> {
             },
           );
         }
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
       },
     );
   }

@@ -3,22 +3,21 @@ import 'package:fastmeal/shared/constant.dart';
 import 'package:fastmeal/widgets/orderwidget.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   List<String> tabs = [
     'จัดการออเดอร์',
     'เสร็จสิ้น',
   ];
 
-  List<Widget> tabs_widget = [
-    GetOrderContainer(),
-    CompleteOrderContainer(),
+  List<Widget> tabsWidget = [
+    const GetOrderContainer(),
+    const CompleteOrderContainer(),
   ];
 
   int current = 0;
@@ -74,8 +73,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   height: 60,
                   width: double.infinity,
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(color: light_orange,borderRadius: BorderRadius.circular(10)),
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                      color: light_orange,
+                      borderRadius: BorderRadius.circular(10)),
                   child: ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: tabs.length,
@@ -92,15 +93,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Container(
                               width: (size.width / 2) - 17,
                               decoration: BoxDecoration(
-                                color: current == index ? orange : white.withOpacity(0),
+                                color: current == index
+                                    ? orange
+                                    : white.withOpacity(0),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Center(
                                   child: Container(
                                 child: Text(
                                   tabs[index],
-                                  style:
-                                      light.copyWith(color: black, fontSize: 16),
+                                  style: light.copyWith(
+                                      color: black, fontSize: 16),
                                 ),
                               )),
                             ),
@@ -108,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       }),
                 ),
-                tabs_widget[current],
+                tabsWidget[current],
               ],
             ),
           ),

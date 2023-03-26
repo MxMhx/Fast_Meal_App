@@ -1,16 +1,14 @@
 import 'dart:convert';
 
 import 'package:fastmeal/models/orderdetailmodel.dart';
-import 'package:fastmeal/widgets/orderwidget.dart';
 import 'package:http/http.dart' as http;
 import 'package:fastmeal/models/ordermodel.dart';
-import 'package:fastmeal/models/allproductmodel.dart';
 
 class APIService {
   //Get Number of get all order
   Future<List<String>?> getOrderNumber() async {
-    List<String> order_number_list = [];
-    Ordermodel data_Order;
+    List<String> orderNumberList = [];
+    Ordermodel dataOrder;
     //https://developers-oaplus.line.biz/myshop/v1/orders
     var url = Uri(
       scheme: 'https',
@@ -20,28 +18,29 @@ class APIService {
     var response = await http.get(url, headers: {
       "X-API-KEY": "MTE3NDliZmMtZjYwMC00MTRmLWFiYzMtMzI2MzljNWNkNGU3"
     });
-    data_Order = ordermodelFromJson(response.body);
+    dataOrder = ordermodelFromJson(response.body);
     if (response.statusCode == 200) {
-      for (var i = 0; i < data_Order.data.length; i++) {
-        order_number_list.add(data_Order.data[i].orderNumber);
+      for (var i = 0; i < dataOrder.data.length; i++) {
+        orderNumberList.add(dataOrder.data[i].orderNumber);
       }
-      return order_number_list;
+      return orderNumberList;
     }
+    return null;
   }
 
   Future<Orderdetailmodel> getOrder(String orderNumber) async {
-    Orderdetailmodel data_Order;
+    Orderdetailmodel dataOrder;
     //https://developers-oaplus.line.biz/myshop/v1/orders
     var url = Uri(
       scheme: 'https',
       host: 'developers-oaplus.line.biz',
-      path: '/myshop/v1/orders/${orderNumber}',
+      path: '/myshop/v1/orders/$orderNumber',
     );
     var response = await http.get(url, headers: {
       "X-API-KEY": "MTE3NDliZmMtZjYwMC00MTRmLWFiYzMtMzI2MzljNWNkNGU3"
     });
-    data_Order = orderdetailmodelFromJson(response.body);
-    return data_Order;
+    dataOrder = orderdetailmodelFromJson(response.body);
+    return dataOrder;
   }
 
   Future<List<Orderdetailmodel>> getOrderDetail() async {
@@ -93,12 +92,11 @@ class APIService {
   }
 
   Future<void> markAsShip(String orderNumber) async {
-    Orderdetailmodel data_Order;
     //https://developers-oaplus.line.biz/myshop/v1/orders/{orderNo}/mark-as-ship
     var url = Uri(
       scheme: 'https',
       host: 'developers-oaplus.line.biz',
-      path: '/myshop/v1/orders/${orderNumber}/mark-as-ship',
+      path: '/myshop/v1/orders/$orderNumber/mark-as-ship',
     );
     var response = await http.post(
       url,
@@ -110,12 +108,11 @@ class APIService {
   }
 
   Future<void> markAsPaid(String orderNumber) async {
-    Orderdetailmodel data_Order;
     //https://developers-oaplus.line.biz/myshop/v1/orders/{orderNo}/mark-as-paid
     var url = Uri(
       scheme: 'https',
       host: 'developers-oaplus.line.biz',
-      path: '/myshop/v1/orders/${orderNumber}/mark-as-paid',
+      path: '/myshop/v1/orders/$orderNumber/mark-as-paid',
     );
     var response = await http.post(
       url,
@@ -123,23 +120,6 @@ class APIService {
         "X-API-KEY": "MTE3NDliZmMtZjYwMC00MTRmLWFiYzMtMzI2MzljNWNkNGU3"
       },
       body: jsonEncode(<String, String>{'paymentStatus': 'PAID'}),
-    );
-  }
-
-  Future<void> cancelOrder(String orderNumber) async {
-    Orderdetailmodel data_Order;
-    //https://developers-oaplus.line.biz/myshop/v1/orders/{orderNo}
-    var url = Uri(
-      scheme: 'https',
-      host: 'developers-oaplus.line.biz',
-      path: '/myshop/v1/orders/${orderNumber}',
-    );
-    var response = await http.put(
-      url,
-      headers: {
-        "X-API-KEY": "MTE3NDliZmMtZjYwMC00MTRmLWFiYzMtMzI2MzljNWNkNGU3"
-      },
-      body: jsonEncode(<String, String>{'orderStatus': 'CANCELED'}),
     );
   }
 }

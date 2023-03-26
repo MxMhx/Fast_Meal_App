@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:fastmeal/models/ListMenu.dart';
+import 'package:fastmeal/models/list_menu.dart';
 import 'package:fastmeal/shared/constant.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +39,7 @@ class _SlideMenuState extends State<SlideMenu> {
                       style: content,
                     ),
                   ),
-                  ...Menu.map((e) => Container(
+                  ...menu.map((e) => Container(
                         padding: EdgeInsets.symmetric(vertical: 10),
                         child: e,
                       )),

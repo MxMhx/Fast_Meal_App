@@ -9,10 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:fastmeal/widgets/button.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:mongo_dart/mongo_dart.dart' as M;
 
 class SignUpFirstScreen extends StatefulWidget {
-  SignUpFirstScreen({super.key});
+  const SignUpFirstScreen({super.key});
 
   @override
   State<SignUpFirstScreen> createState() => _SignUpFirstScreenState();
@@ -20,14 +19,9 @@ class SignUpFirstScreen extends StatefulWidget {
 
 class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
   final formKey = GlobalKey<FormState>();
-  userProfile userprofile = userProfile();
+  UserProfile userprofile = UserProfile();
 
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
-
-  // var usernameController = TextEditingController();
-  // var idController = TextEditingController();
-  // var emailnameController = TextEditingController();
-  // var passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +32,7 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
           if (snapshot.hasError) {
             return Scaffold(
               appBar: AppBar(
-                title: Text(
+                title: const Text(
                   "ERROR",
                   style: bold,
                 ),
@@ -218,11 +212,12 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
                                       )
                                           .then((value) {
                                         formKey.currentState!.reset();
-                                        Navigator.popAndPushNamed(context, '/login');
+                                        Navigator.popAndPushNamed(
+                                            context, '/login');
                                       });
                                     } on FirebaseAuthException catch (e) {
-                                      print(e.message);
-                                      print(e.code);
+                                      debugPrint(e.message);
+                                      debugPrint(e.code);
                                       String message;
                                       if (e.code == 'email-already-in-use') {
                                         message =
@@ -251,7 +246,7 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
               ),
             );
           }
-          return Scaffold(
+          return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),
@@ -266,7 +261,7 @@ class InputEmailField extends StatelessWidget {
     required this.data,
   });
 
-  userProfile data = userProfile();
+  UserProfile data = UserProfile();
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
@@ -295,7 +290,7 @@ class InputEmailField extends StatelessWidget {
 class InputPasswordlField extends StatefulWidget {
   InputPasswordlField({super.key, required this.data});
 
-  userProfile data = userProfile();
+  UserProfile data = UserProfile();
 
   @override
   State<InputPasswordlField> createState() => _InputPasswordlFieldState();

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../shared/constant.dart';
 
-List<ListTile> Menu = [
+List<ListTile> menu = [
   ListTile(
     onTap: () {},
-    leading: SizedBox(
+    leading: const SizedBox(
       height: 54,
       width: 34,
       child: Icon(
@@ -19,7 +19,7 @@ List<ListTile> Menu = [
   ),
   ListTile(
     onTap: () {},
-    leading: SizedBox(
+    leading: const SizedBox(
       height: 54,
       width: 34,
       child: Icon(
@@ -34,7 +34,7 @@ List<ListTile> Menu = [
   ),
   ListTile(
     onTap: () {},
-    leading: SizedBox(
+    leading: const SizedBox(
       height: 54,
       width: 34,
       child: Icon(

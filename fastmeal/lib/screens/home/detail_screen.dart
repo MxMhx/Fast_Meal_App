@@ -1,5 +1,5 @@
 import 'package:fastmeal/models/orderdetailmodel.dart';
-import 'package:fastmeal/provider/DetailProvider.dart';
+import 'package:fastmeal/provider/detail_provider.dart';
 import 'package:fastmeal/services/api_service.dart';
 import 'package:fastmeal/widgets/detailwidget.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,7 @@ import 'package:fastmeal/shared/constant.dart';
 import 'package:provider/provider.dart';
 
 class DetailScreen extends StatefulWidget {
-  DetailScreen({super.key});
+  const DetailScreen({super.key});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -20,10 +20,10 @@ class _DetailScreenState extends State<DetailScreen> {
     'การชำระเงิน',
   ];
 
-  List<Widget> tabs_widget = [
-    detailWidget(),
-    shipmentWidget(),
-    paidWidget(),
+  List<Widget> tabsWidget = [
+    const DetailWidget(),
+    const ShipmentWidget(),
+    const PaidWidget(),
   ];
 
   int currentIndex = 0;
@@ -46,7 +46,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 if (snapshot.connectionState == ConnectionState.done) {
                   return Container(
                     height: size.height * 0.1,
-                    margin: EdgeInsets.all(40),
+                    margin: const EdgeInsets.all(40),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -64,7 +64,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 }
                 return Container(
                   height: size.height * 0.1,
-                  margin: EdgeInsets.all(40),
+                  margin: const EdgeInsets.all(40),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -135,7 +135,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       },
                     ),
                   ),
-                  tabs_widget[currentIndex],
+                  tabsWidget[currentIndex],
                 ],
               ),
             )

@@ -15,7 +15,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:modal_progress_hud_alt/modal_progress_hud_alt.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -23,7 +23,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
-  userProfile userprofile = userProfile();
+  UserProfile userprofile = UserProfile();
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
   @override
@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (snapshot.hasError) {
             return Scaffold(
               appBar: AppBar(
-                  title: Text(
+                  title: const Text(
                 'ERROR',
                 style: bold,
               )),
@@ -133,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   )),
                 ));
           }
-          return Scaffold(
+          return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),
@@ -144,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
 class InputEmailField extends StatelessWidget {
   InputEmailField({super.key, required this.data});
-  userProfile data = userProfile();
+  UserProfile data = UserProfile();
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +173,7 @@ class InputEmailField extends StatelessWidget {
 
 class InputPasswordlField extends StatefulWidget {
   InputPasswordlField({super.key, required this.data});
-  userProfile data = userProfile();
+  UserProfile data = UserProfile();
 
   @override
   State<InputPasswordlField> createState() => _InputPasswordlFieldState();
